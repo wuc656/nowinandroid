@@ -41,6 +41,34 @@ import com.google.samples.apps.nowinandroid.core.designsystem.component.scrollba
 import com.google.samples.apps.nowinandroid.core.model.data.FollowableTopic
 import com.google.samples.apps.nowinandroid.core.ui.InterestsItem
 
+// 翻譯對應表
+private val topicTranslationMap = mapOf(
+    "Android Studio" to "Android 開發工具",
+    "Compose" to "介面開發 (Compose)",
+    "Kotlin" to "Kotlin 語言",
+    "Performance" to "效能優化",
+    "Architecture" to "架構設計",
+    "Testing" to "測試與品質",
+    "UI & UX" to "使用者介面與體驗",
+    "Gradle" to "自動化建置 (Gradle)",
+    "Accessibility" to "無障礙輔助",
+    "Modularization" to "模組化設計",
+    "Data Storage" to "數據儲存",
+    "Dependency Injection" to "依賴注入",
+    "Security" to "安全與資安",
+    "WorkManager" to "後台任務 (WorkManager)",
+    "Camera & Media" to "相機與媒體",
+    "New APIs" to "新 API 介紹",
+    "App Quality" to "應用程式品質"
+)
+
+private val descriptionTranslationMap = mapOf(
+    "Latest news on Android Studio" to "關於 Android Studio 的最新動態",
+    "Latest news on Jetpack Compose" to "關於 Jetpack Compose 的最新動態",
+    "Latest news on Kotlin" to "關於 Kotlin 語言的最新消息",
+    "Latest news on Architecture" to "關於 Android 架構設計的最新消息"
+)
+
 @Composable
 fun TopicsTabContent(
     topics: List<FollowableTopic>,
@@ -67,10 +95,13 @@ fun TopicsTabContent(
                 val topicId = followableTopic.topic.id
                 item(key = topicId) {
                     val isSelected = shouldHighlightSelectedTopic && topicId == selectedTopicId
+                    val translatedName = topicTranslationMap[followableTopic.topic.name] ?: followableTopic.topic.name
+                    val translatedDescription = descriptionTranslationMap[followableTopic.topic.shortDescription] ?: followableTopic.topic.shortDescription
+
                     InterestsItem(
-                        name = followableTopic.topic.name,
+                        name = translatedName,
                         following = followableTopic.isFollowed,
-                        description = followableTopic.topic.shortDescription,
+                        description = translatedDescription,
                         topicImageUrl = followableTopic.topic.imageUrl,
                         onClick = { onTopicClick(topicId) },
                         onFollowButtonClick = { onFollowButtonClick(topicId, it) },
