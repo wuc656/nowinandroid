@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2026 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <string name="feature_search_api_title">搜尋</string>
+    <string name="feature_search_api_clear_search_text_content_desc">清除搜尋文字</string>
+    <string name="feature_search_api_result_not_found">抱歉，找不到與「%1$s」相關的內容</string>
+    <string name="feature_search_api_not_ready">抱歉，我們還在處理搜尋索引。請稍後再試</string>
+    <string name="feature_search_api_try_another_search">嘗試其他搜尋或瀏覽</string>
+    <string name="feature_search_api_interests">興趣</string>
+    <string name="feature_search_api_to_browse_topics">瀏覽主題</string>
+    <string name="feature_search_api_topics">主題</string>
+    <string name="feature_search_api_updates">更新</string>
+    <string name="feature_search_api_recent_searches">最近的搜尋</string>
+    <string name="feature_search_api_clear_recent_searches_content_desc">清除搜尋紀錄</string>
+</resources>

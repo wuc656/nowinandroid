@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2026 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <string name="core_ui_bookmark">書籤</string>
+    <string name="core_ui_unbookmark">取消書籤</string>
+    <string name="core_ui_back">返回</string>
+    <string name="core_ui_unread_resource_dot_content_description">未讀</string>
+    <string name="core_ui_card_tap_action">開啟資源連結</string>
+    <string name="core_ui_interests_card_follow_button_content_desc">關注興趣</string>
+    <string name="core_ui_interests_card_unfollow_button_content_desc">取消關注興趣</string>
+    <string name="core_ui_feed_sharing">動態分享</string>
+</resources>
