@@ -47,3 +47,8 @@ captures/
 
 # Kotlin
 .kotlin
+
+# Keystore files
+*.jks
+*.keystore
+release.jks

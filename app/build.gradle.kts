@@ -20,7 +20,7 @@ plugins {
     alias(libs.plugins.nowinandroid.android.application.compose)
     alias(libs.plugins.nowinandroid.android.application.flavors)
     alias(libs.plugins.nowinandroid.android.application.jacoco)
-    alias(libs.plugins.nowinandroid.android.application.firebase)
+    // alias(libs.plugins.nowinandroid.android.application.firebase) // 暫時關閉以支援自定義 ID
     alias(libs.plugins.nowinandroid.hilt)
     alias(libs.plugins.google.osslicenses)
     alias(libs.plugins.baselineprofile)
@@ -30,12 +30,31 @@ plugins {
 
 android {
     defaultConfig {
-        applicationId = "com.google.samples.apps.nowinandroid"
-        versionCode = 8
-        versionName = "0.1.2-wuc656" // wuc656 版
+        applicationId = "com.wuc656.nowinandroid"
+        versionCode = 1
+        versionName = "1.0.0" // wuc656 版
 
         // Custom test runner to set up Hilt dependency graph
         testInstrumentationRunner = "com.google.samples.apps.nowinandroid.core.testing.NiaTestRunner"
+    }
+
+    signingConfigs {
+        create("release") {
+            // 從 local.properties 讀取設定，避免密碼洩漏到 GIT
+            val properties = java.util.Properties()
+            val localPropertiesFile = rootProject.file("local.properties")
+            if (localPropertiesFile.exists()) {
+                localPropertiesFile.inputStream().use { properties.load(it) }
+            }
+
+            val storeFilePath = properties.getProperty("signing.storeFilePath")
+            if (storeFilePath != null) {
+                storeFile = file(storeFilePath)
+            }
+            storePassword = properties.getProperty("signing.storePassword")
+            keyAlias = properties.getProperty("signing.keyAlias")
+            keyPassword = properties.getProperty("signing.keyPassword")
+        }
     }
 
     buildTypes {
@@ -49,10 +68,7 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
                           "proguard-rules.pro")
 
-            // To publish on the Play store a private signing key is required, but to allow anyone
-            // who clones the code to sign and run the release variant, use the debug signing key.
-            // TODO: Abstract the signing configuration to a separate file to avoid hardcoding this.
-            signingConfig = signingConfigs.named("debug").get()
+            signingConfig = signingConfigs.getByName("release")
             // Ensure Baseline Profile is fresh for release builds.
             baselineProfile.automaticGenerationDuringBuild = true
         }
