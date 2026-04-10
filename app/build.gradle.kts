@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import com.google.samples.apps.nowinandroid.NiaBuildType
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.nowinandroid.android.application)
@@ -41,10 +42,12 @@ android {
     signingConfigs {
         create("release") {
             // 從 local.properties 讀取設定，避免密碼洩漏到 GIT
-            val properties = java.util.Properties()
+            val properties = Properties()
             val localPropertiesFile = rootProject.file("local.properties")
             if (localPropertiesFile.exists()) {
-                localPropertiesFile.inputStream().use { properties.load(it) }
+                localPropertiesFile.inputStream().use { 
+                    properties.load(it) 
+                }
             }
 
             val storeFilePath = properties.getProperty("signing.storeFilePath")
@@ -156,7 +159,7 @@ dependencies {
 
 baselineProfile {
     // Don't build on every iteration of a full assemble.
-    // Instead enable generation directly for the release build variant.
+    // Instead, enable generation directly for the release build variant.
     automaticGenerationDuringBuild = false
 
     // Make use of Dex Layout Optimizations via Startup Profiles
