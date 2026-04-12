@@ -16,13 +16,13 @@
 
 import com.android.build.api.dsl.LibraryExtension
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
-import com.google.samples.apps.nowinandroid.configureFlavors
-import com.google.samples.apps.nowinandroid.configureGradleManagedDevices
-import com.google.samples.apps.nowinandroid.configureKotlinAndroid
-import com.google.samples.apps.nowinandroid.configurePrintApksTask
-import com.google.samples.apps.nowinandroid.configureSpotlessForAndroid
-import com.google.samples.apps.nowinandroid.disableUnnecessaryAndroidTests
-import com.google.samples.apps.nowinandroid.libs
+import com.wuc656.nowinandroid.configureFlavors
+import com.wuc656.nowinandroid.configureGradleManagedDevices
+import com.wuc656.nowinandroid.configureKotlinAndroid
+import com.wuc656.nowinandroid.configurePrintApksTask
+import com.wuc656.nowinandroid.configureSpotlessForAndroid
+import com.wuc656.nowinandroid.disableUnnecessaryAndroidTests
+import com.wuc656.nowinandroid.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply

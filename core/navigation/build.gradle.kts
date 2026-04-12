@@ -23,7 +23,7 @@ plugins {
 }
 
 android {
-    namespace = "com.google.samples.apps.nowinandroid.core.navigation"
+    namespace = "com.wuc656.nowinandroid.core.navigation"
 }
 
 dependencies {

@@ -19,7 +19,7 @@ plugins {
 }
 
 android {
-    namespace = "com.google.samples.apps.nowinandroid.feature.search.api"
+    namespace = "com.wuc656.nowinandroid.feature.search.api"
 }
 
 dependencies {

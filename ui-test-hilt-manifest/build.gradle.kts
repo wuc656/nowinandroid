@@ -19,5 +19,5 @@ plugins {
 }
 
 android {
-    namespace = "com.google.samples.apps.nowinandroid.uitesthiltmanifest"
+    namespace = "com.wuc656.nowinandroid.uitesthiltmanifest"
 }

@@ -1,6 +1,6 @@
 ![Now in Android](docs/images/nia-splash.jpg "Now in Android")
 
-<a href="https://play.google.com/store/apps/details?id=com.google.samples.apps.nowinandroid"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="70"></a>
+<a href="https://play.google.com/store/apps/details?id=com.wuc656.nowinandroid"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="70"></a>
 
 Now in Android App
 ==================
@@ -8,14 +8,14 @@ Now in Android App
 **Learn how this app was designed and built in the [design case study](https://goo.gle/nia-figma), [architecture learning journey](docs/ArchitectureLearningJourney.md) and [modularization learning journey](docs/ModularizationLearningJourney.md).**
 
 This is the repository for the [Now in Android](https://developer.android.com/series/now-in-android)
-app. It is a **work in progress** ðŸš§.
+app. It is a **work in progress** ?š§.
 
 **Now in Android** is a fully functional Android app built entirely with Kotlin and Jetpack Compose. It
 follows Android design and development best practices and is intended to be a useful reference
 for developers. As a running app, it's intended to help developers keep up-to-date with the world
 of Android development by providing regular news updates.
 
-The app is currently in development. The `prodRelease` variant is [available on the Play Store](https://play.google.com/store/apps/details?id=com.google.samples.apps.nowinandroid).
+The app is currently in development. The `prodRelease` variant is [available on the Play Store](https://play.google.com/store/apps/details?id=com.wuc656.nowinandroid).
 
 # Features
 
@@ -124,7 +124,7 @@ tests against _all_ build variants which is both unnecessary and will result in 
 A screenshot test takes a screenshot of a screen or a UI component within the app, and compares it 
 with a previously recorded screenshot which is known to be rendered correctly. 
 
-For example, Now in Android has [screenshot tests](https://github.com/android/nowinandroid/blob/main/app/src/testDemo/kotlin/com/google/samples/apps/nowinandroid/ui/NiaAppScreenSizesScreenshotTests.kt)
+For example, Now in Android has [screenshot tests](https://github.com/android/nowinandroid/blob/main/app/src/testDemo/kotlin/com.wuc656.nowinandroid/ui/NiaAppScreenSizesScreenshotTests.kt)
 to verify that the navigation is displayed correctly on different screen sizes 
 ([known correct screenshots](https://github.com/android/nowinandroid/tree/main/app/src/testDemo/screenshots)). 
 

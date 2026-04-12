@@ -21,7 +21,7 @@ plugins {
 }
 
 android {
-    namespace = "com.google.samples.apps.nowinandroid.feature.foryou.impl"
+    namespace = "com.wuc656.nowinandroid.feature.foryou.impl"
     testOptions.unitTests.isIncludeAndroidResources = true
 }
 

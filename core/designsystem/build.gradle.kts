@@ -21,7 +21,7 @@ plugins {
 }
 
 android {
-    namespace = "com.google.samples.apps.nowinandroid.core.designsystem"
+    namespace = "com.wuc656.nowinandroid.core.designsystem"
     testOptions.unitTests.isIncludeAndroidResources = true
 }
 

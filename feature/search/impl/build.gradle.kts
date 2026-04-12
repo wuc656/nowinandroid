@@ -21,7 +21,7 @@ plugins {
 }
 
 android {
-    namespace = "com.google.samples.apps.nowinandroid.feature.search.impl"
+    namespace = "com.wuc656.nowinandroid.feature.search.impl"
 }
 
 dependencies {

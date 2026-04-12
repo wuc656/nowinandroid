@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import com.google.samples.apps.nowinandroid.FlavorDimension
-import com.google.samples.apps.nowinandroid.NiaFlavor
+import com.wuc656.nowinandroid.FlavorDimension
+import com.wuc656.nowinandroid.NiaFlavor
 
 /*
  * Copyright 2022 The Android Open Source Project
@@ -38,7 +38,7 @@ plugins {
 
 android {
     defaultConfig {
-        applicationId = "com.google.samples.apps.niacatalog"
+        applicationId = "com.wuc656.nowinandroid.niacatalog"
         versionCode = 1
         versionName = "0.0.1" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
@@ -52,7 +52,7 @@ android {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
     }
-    namespace = "com.google.samples.apps.niacatalog"
+    namespace = "com.wuc656.nowinandroid.niacatalog"
 
     buildTypes {
         release {
@@ -74,3 +74,4 @@ dependencies {
 dependencyGuard {
     configuration("releaseRuntimeClasspath")
 }
+

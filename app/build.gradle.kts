@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import com.google.samples.apps.nowinandroid.NiaBuildType
+import com.wuc656.nowinandroid.NiaBuildType
 import java.util.Properties
 
 plugins {
@@ -32,11 +32,11 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.wuc656.nowinandroid"
-        versionCode = 1
-        versionName = "1.0.0" // wuc656 版
+        versionCode = 2
+        versionName = "1.0.1" // wuc656 版
 
         // Custom test runner to set up Hilt dependency graph
-        testInstrumentationRunner = "com.google.samples.apps.nowinandroid.core.testing.NiaTestRunner"
+        testInstrumentationRunner = "com.wuc656.nowinandroid.core.testing.NiaTestRunner"
     }
 
     signingConfigs {
@@ -83,7 +83,7 @@ android {
         }
     }
     testOptions.unitTests.isIncludeAndroidResources = true
-    namespace = "com.google.samples.apps.nowinandroid"
+    namespace = "com.wuc656.nowinandroid"
 }
 
 dependencies {

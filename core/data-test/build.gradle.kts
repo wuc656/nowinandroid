@@ -19,7 +19,7 @@ plugins {
 }
 
 android {
-    namespace = "com.google.samples.apps.nowinandroid.core.data.test"
+    namespace = "com.wuc656.nowinandroid.core.data.test"
 }
 
 dependencies {

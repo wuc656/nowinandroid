@@ -20,7 +20,7 @@ plugins {
 }
 
 android {
-    namespace = "com.google.samples.apps.nowinandroid.core.screenshottesting"
+    namespace = "com.wuc656.nowinandroid.core.screenshottesting"
 }
 
 dependencies {

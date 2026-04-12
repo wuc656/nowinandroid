@@ -20,7 +20,7 @@ plugins {
 }
 
 android {
-    namespace = "com.google.samples.apps.nowinandroid.feature.bookmarks.impl"
+    namespace = "com.wuc656.nowinandroid.feature.bookmarks.impl"
 }
 
 dependencies {

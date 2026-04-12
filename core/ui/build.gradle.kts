@@ -20,7 +20,7 @@ plugins {
 }
 
 android {
-    namespace = "com.google.samples.apps.nowinandroid.core.ui"
+    namespace = "com.wuc656.nowinandroid.core.ui"
 }
 
 dependencies {

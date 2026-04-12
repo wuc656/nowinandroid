@@ -19,5 +19,5 @@ plugins {
 }
 
 android {
-    namespace = "com.google.samples.apps.nowinandroid.feature.bookmarks.api"
+    namespace = "com.wuc656.nowinandroid.feature.bookmarks.api"
 }
