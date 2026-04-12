@@ -54,7 +54,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="https" />
-                <data android:host="www.nowinandroid.apps.samples.google.com" />
+                <data android:host="www.wuc656.nowinandroid.com" />
             </intent-filter>
         </activity>
 

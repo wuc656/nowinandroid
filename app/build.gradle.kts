@@ -32,8 +32,8 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.wuc656.nowinandroid"
-        versionCode = 2
-        versionName = "1.0.1" // wuc656 版
+        versionCode = 5
+        versionName = "1.0.4" // wuc656 版
 
         // Custom test runner to set up Hilt dependency graph
         testInstrumentationRunner = "com.wuc656.nowinandroid.core.testing.NiaTestRunner"
@@ -67,6 +67,7 @@ android {
         release {
             isMinifyEnabled = providers.gradleProperty("minifyWithR8")
                 .map(String::toBooleanStrict).getOrElse(true)
+            isShrinkResources = true
             applicationIdSuffix = NiaBuildType.RELEASE.applicationIdSuffix
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
                           "proguard-rules.pro")
@@ -74,6 +75,18 @@ android {
             signingConfig = signingConfigs.getByName("release")
             // Ensure Baseline Profile is fresh for release builds.
             baselineProfile.automaticGenerationDuringBuild = true
+
+            // 新增偵錯符號設定，解決 Google Play 提示
+            ndk {
+                debugSymbolLevel = "FULL"
+            }
+            
+            // 強制包含原生程式庫的偵錯資訊
+            packaging {
+                jniLibs {
+                    keepDebugSymbols.add("**/*.so")
+                }
+            }
         }
     }
 

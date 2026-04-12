@@ -45,5 +45,12 @@ object JankStatsModule {
     fun providesJankStats(
         window: Window,
         frameListener: OnFrameListener,
-    ): JankStats = JankStats.createAndTrack(window, frameListener)
+    ): JankStats? {
+        return try {
+            JankStats.createAndTrack(window, frameListener)
+        } catch (e: IllegalStateException) {
+            Log.w("NiA Jank", "Failed to create JankStats", e)
+            null
+        }
+    }
 }
