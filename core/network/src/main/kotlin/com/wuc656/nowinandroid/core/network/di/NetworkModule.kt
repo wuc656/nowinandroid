@@ -95,8 +95,10 @@ internal object NetworkModule {
                     .maxSizeBytes(250 * 1024 * 1024)
                     .build()
             }
-            // Assume most content images are versioned urls
-            // but some problematic images are fetching each time
+            // 針對高螢幕刷新率設備優化
+            .crossfade(true)
+            .allowHardware(true)
+            // 假設大多數內容圖片是版本化的 URL
             .respectCacheHeaders(false)
             .apply {
                 if (BuildConfig.DEBUG) {

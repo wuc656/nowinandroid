@@ -39,6 +39,7 @@ fun TopicsTabContent(
             items(
                 count = topics.size,
                 key = { topics[it].topic.id },
+                contentType = { "topic" },
             ) { index ->
                 val followableTopic = topics[index]
                 val topic = followableTopic.topic

@@ -46,6 +46,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -80,24 +81,6 @@ import kotlinx.datetime.toJavaZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
-
-private val topicTranslationMap = mapOf(
-    "Android Studio" to "Android Studio",
-    "Compose" to "Jetpack Compose",
-    "Kotlin" to "Kotlin 程式語言",
-    "Performance" to "效能優化",
-    "Architecture" to "架構設計",
-    "Testing" to "測試與品質",
-    "UI & UX" to "使用者介面與體驗",
-    "Gradle" to "Gradle 建置系統",
-    "Accessibility" to "無障礙輔助",
-    "Modularization" to "模組化開發",
-    "Data Storage" to "資料儲存",
-    "Dependency Injection" to "依賴注入 (DI)",
-    "Security" to "資訊安全",
-    "WorkManager" to "背景任務 (WorkManager)",
-    "Camera & Media" to "相機與媒體",
-)
 
 /**
  * [NewsResource] card used on the following screens: For You, Saved
@@ -332,33 +315,35 @@ fun NewsResourceTopics(
         modifier = modifier.horizontalScroll(rememberScrollState()),
         horizontalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        for (followableTopic in topics) {
-            NiaTopicTag(
-                followed = followableTopic.isFollowed,
-                onClick = { onTopicClick(followableTopic.topic.id) },
-                text = {
-                    val topicName = topicTranslationMap[followableTopic.topic.name] ?: followableTopic.topic.name
-                    val contentDescription = if (followableTopic.isFollowed) {
-                        stringResource(
-                            R.string.core_ui_topic_chip_content_description_when_followed,
-                            topicName,
+        topics.forEach { followableTopic ->
+            key(followableTopic.topic.id) {
+                val topicName = rememberTranslatedName(followableTopic.topic.name)
+                NiaTopicTag(
+                    followed = followableTopic.isFollowed,
+                    onClick = { onTopicClick(followableTopic.topic.id) },
+                    text = {
+                        val contentDescription = if (followableTopic.isFollowed) {
+                            stringResource(
+                                R.string.core_ui_topic_chip_content_description_when_followed,
+                                topicName,
+                            )
+                        } else {
+                            stringResource(
+                                R.string.core_ui_topic_chip_content_description_when_not_followed,
+                                topicName,
+                            )
+                        }
+                        Text(
+                            text = topicName.uppercase(),
+                            modifier = Modifier
+                                .semantics {
+                                    this.contentDescription = contentDescription
+                                }
+                                .testTag("topicTag:${followableTopic.topic.id}"),
                         )
-                    } else {
-                        stringResource(
-                            R.string.core_ui_topic_chip_content_description_when_not_followed,
-                            topicName,
-                        )
-                    }
-                    Text(
-                        text = topicName.uppercase(Locale.getDefault()),
-                        modifier = Modifier
-                            .semantics {
-                                this.contentDescription = contentDescription
-                            }
-                            .testTag("topicTag:${followableTopic.topic.id}"),
-                    )
-                },
-            )
+                    },
+                )
+            }
         }
     }
 }

@@ -353,6 +353,7 @@ private fun TopicSelection(
             items(
                 items = onboardingUiState.topics,
                 key = { it.topic.id },
+                contentType = { "topicButton" },
             ) {
                 SingleTopicButton(
                     name = it.topic.name,
