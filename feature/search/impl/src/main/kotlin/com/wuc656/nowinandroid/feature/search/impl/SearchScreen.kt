@@ -95,6 +95,24 @@ import com.wuc656.nowinandroid.core.ui.TrackScreenViewEvent
 import com.wuc656.nowinandroid.core.ui.newsFeed
 import com.wuc656.nowinandroid.feature.search.api.R as searchR
 
+private val topicTranslationMap = mapOf(
+    "Android Studio" to "Android Studio",
+    "Compose" to "Jetpack Compose",
+    "Kotlin" to "Kotlin 程式語言",
+    "Performance" to "效能優化",
+    "Architecture" to "架構設計",
+    "Testing" to "測試與品質",
+    "UI & UX" to "使用者介面與體驗",
+    "Gradle" to "Gradle 建置系統",
+    "Accessibility" to "無障礙輔助",
+    "Modularization" to "模組化開發",
+    "Data Storage" to "資料儲存",
+    "Dependency Injection" to "依賴注入 (DI)",
+    "Security" to "資訊安全",
+    "WorkManager" to "背景任務 (WorkManager)",
+    "Camera & Media" to "相機與媒體",
+)
+
 @Composable
 internal fun SearchScreen(
     onBackClick: () -> Unit,
@@ -328,7 +346,7 @@ private fun SearchResultBody(
                         span = StaggeredGridItemSpan.FullLine,
                     ) {
                         InterestsItem(
-                            name = followableTopic.topic.name,
+                            name = topicTranslationMap[followableTopic.topic.name] ?: followableTopic.topic.name,
                             following = followableTopic.isFollowed,
                             description = followableTopic.topic.shortDescription,
                             topicImageUrl = followableTopic.topic.imageUrl,

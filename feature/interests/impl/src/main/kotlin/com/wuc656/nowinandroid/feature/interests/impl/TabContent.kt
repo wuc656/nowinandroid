@@ -18,24 +18,6 @@ import com.wuc656.nowinandroid.core.designsystem.component.scrollbar.scrollbarSt
 import com.wuc656.nowinandroid.core.model.data.FollowableTopic
 import com.wuc656.nowinandroid.core.ui.InterestsItem
 
-private val topicTranslationMap = mapOf(
-    "Android Studio" to "Android Studio",
-    "Compose" to "Compose",
-    "Kotlin" to "Kotlin",
-    "Performance" to "Performance",
-    "Architecture" to "Architecture",
-    "Testing" to "Testing",
-    "UI & UX" to "UI & UX",
-    "Gradle" to "Gradle",
-    "Accessibility" to "Accessibility",
-    "Modularization" to "Modularization",
-    "Data Storage" to "Data Storage",
-    "Dependency Injection" to "Dependency Injection",
-    "Security" to "Security",
-    "WorkManager" to "WorkManager",
-    "Camera & Media" to "Camera & Media",
-)
-
 @Composable
 fun TopicsTabContent(
     topics: List<FollowableTopic>,
@@ -61,7 +43,7 @@ fun TopicsTabContent(
                 val followableTopic = topics[index]
                 val topic = followableTopic.topic
                 InterestsItem(
-                    name = topicTranslationMap[topic.name] ?: topic.name,
+                    name = topic.name,
                     description = topic.shortDescription,
                     topicImageUrl = topic.imageUrl,
                     following = followableTopic.isFollowed,

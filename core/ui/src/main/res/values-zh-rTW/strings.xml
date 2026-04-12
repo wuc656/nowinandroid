@@ -20,7 +20,11 @@
     <string name="core_ui_back">返回</string>
     <string name="core_ui_unread_resource_dot_content_description">未讀</string>
     <string name="core_ui_card_tap_action">開啟資源連結</string>
+    <string name="core_ui_card_meta_data_text">%1$s • %2$s</string>
+    <string name="core_ui_topic_chip_content_description_when_followed">已關注 %1$s</string>
+    <string name="core_ui_topic_chip_content_description_when_not_followed">未關注 %1$s</string>
     <string name="core_ui_interests_card_follow_button_content_desc">關注興趣</string>
     <string name="core_ui_interests_card_unfollow_button_content_desc">取消關注興趣</string>
     <string name="core_ui_feed_sharing">動態分享</string>
+    <string name="core_ui_feed_sharing_data">%1$s：%2$s</string>
 </resources>

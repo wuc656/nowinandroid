@@ -20,6 +20,8 @@ import android.content.Context
 import androidx.tracing.trace
 import coil.ImageLoader
 import coil.decode.SvgDecoder
+import coil.disk.DiskCache
+import coil.memory.MemoryCache
 import coil.util.DebugLogger
 import com.wuc656.nowinandroid.core.network.BuildConfig
 import com.wuc656.nowinandroid.core.network.demo.DemoAssetManager
@@ -82,6 +84,17 @@ internal object NetworkModule {
         ImageLoader.Builder(application)
             .callFactory { okHttpCallFactory.get() }
             .components { add(SvgDecoder.Factory()) }
+            .memoryCache {
+                MemoryCache.Builder(application)
+                    .maxSizePercent(0.25)
+                    .build()
+            }
+            .diskCache {
+                DiskCache.Builder()
+                    .directory(application.cacheDir.resolve("image_cache"))
+                    .maxSizeBytes(250 * 1024 * 1024)
+                    .build()
+            }
             // Assume most content images are versioned urls
             // but some problematic images are fetching each time
             .respectCacheHeaders(false)
