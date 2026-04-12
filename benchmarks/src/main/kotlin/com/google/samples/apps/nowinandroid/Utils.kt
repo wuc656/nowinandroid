@@ -28,7 +28,7 @@ import java.io.ByteArrayOutputStream
  * Convenience parameter to use proper package name with regards to build type and build flavor.
  */
 val PACKAGE_NAME = buildString {
-    append("com.google.samples.apps.nowinandroid")
+    append("com.wuc656.nowinandroid")
     append(BuildConfig.APP_FLAVOR_SUFFIX)
 }
 

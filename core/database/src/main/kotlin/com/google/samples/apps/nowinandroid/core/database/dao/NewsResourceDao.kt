@@ -102,6 +102,18 @@ interface NewsResourceDao {
     @Upsert
     suspend fun upsertNewsResources(newsResourceEntities: List<NewsResourceEntity>)
 
+    /**
+     * Inserts or updates [newsResourceEntities] and [newsResourceTopicCrossReferences] in a transaction
+     */
+    @Transaction
+    suspend fun upsertNewsResourcesWithTopics(
+        newsResourceEntities: List<NewsResourceEntity>,
+        newsResourceTopicCrossReferences: List<NewsResourceTopicCrossRef>,
+    ) {
+        upsertNewsResources(newsResourceEntities)
+        insertOrIgnoreTopicCrossRefEntities(newsResourceTopicCrossReferences)
+    }
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertOrIgnoreTopicCrossRefEntities(
         newsResourceTopicCrossReferences: List<NewsResourceTopicCrossRef>,

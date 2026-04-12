@@ -111,12 +111,10 @@ internal class OfflineFirstNewsRepository @Inject constructor(
                             .flatten()
                             .distinctBy(TopicEntity::id),
                     )
-                    newsResourceDao.upsertNewsResources(
+                    newsResourceDao.upsertNewsResourcesWithTopics(
                         newsResourceEntities = networkNewsResources.map(
                             NetworkNewsResource::asEntity,
                         ),
-                    )
-                    newsResourceDao.insertOrIgnoreTopicCrossRefEntities(
                         newsResourceTopicCrossReferences = networkNewsResources
                             .map(NetworkNewsResource::topicCrossReferences)
                             .distinct()
