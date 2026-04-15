@@ -18,9 +18,9 @@ package com.wuc656.nowinandroid.core.data.di
 
 import com.wuc656.nowinandroid.core.data.repository.DefaultRecentSearchRepository
 import com.wuc656.nowinandroid.core.data.repository.DefaultSearchContentsRepository
+import com.wuc656.nowinandroid.core.data.repository.MockNewsRepository
+import com.wuc656.nowinandroid.core.data.repository.MockTopicsRepository
 import com.wuc656.nowinandroid.core.data.repository.NewsRepository
-import com.wuc656.nowinandroid.core.data.repository.OfflineFirstNewsRepository
-import com.wuc656.nowinandroid.core.data.repository.OfflineFirstTopicsRepository
 import com.wuc656.nowinandroid.core.data.repository.OfflineFirstUserDataRepository
 import com.wuc656.nowinandroid.core.data.repository.RecentSearchRepository
 import com.wuc656.nowinandroid.core.data.repository.SearchContentsRepository
@@ -41,12 +41,12 @@ abstract class DataModule {
 
     @Binds
     internal abstract fun bindsTopicRepository(
-        topicsRepository: OfflineFirstTopicsRepository,
+        topicsRepository: MockTopicsRepository,
     ): TopicsRepository
 
     @Binds
     internal abstract fun bindsNewsResourceRepository(
-        newsRepository: OfflineFirstNewsRepository,
+        newsRepository: MockNewsRepository,
     ): NewsRepository
 
     @Binds

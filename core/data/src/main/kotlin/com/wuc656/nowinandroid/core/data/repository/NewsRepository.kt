@@ -38,6 +38,9 @@ data class NewsResourceQuery(
  * Data layer implementation for [NewsResource]
  */
 interface NewsRepository : Syncable {
+    companion object {
+        const val QUERY_NEWS = "news"
+    }
     /**
      * Returns available news resources that match the specified [query].
      */

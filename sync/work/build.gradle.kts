@@ -37,6 +37,7 @@ dependencies {
     implementation(projects.core.notifications)
 
     prodImplementation(libs.firebase.cloud.messaging)
+    prodImplementation(libs.firebase.analytics)
     prodImplementation(platform(libs.firebase.bom))
 
     androidTestImplementation(libs.androidx.work.testing)

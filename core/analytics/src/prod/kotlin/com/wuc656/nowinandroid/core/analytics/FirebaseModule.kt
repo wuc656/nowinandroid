@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,23 +14,21 @@
  * limitations under the License.
  */
 
-package com.wuc656.nowinandroid.core.data.repository
+package com.wuc656.nowinandroid.core.analytics
 
-import com.wuc656.nowinandroid.core.data.Syncable
-import com.wuc656.nowinandroid.core.model.data.Topic
-import kotlinx.coroutines.flow.Flow
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
-interface TopicsRepository : Syncable {
-    companion object {
-        const val QUERY_TOPICS = "topics"
-    }
-    /**
-     * Gets the available topics as a stream
-     */
-    fun getTopics(): Flow<List<Topic>>
-
-    /**
-     * Gets data for a specific topic
-     */
-    fun getTopic(id: String): Flow<Topic>
+@Module
+@InstallIn(SingletonComponent::class)
+object FirebaseModule {
+    @Provides
+    @Singleton
+    fun provideFirebaseAnalytics(): FirebaseAnalytics = Firebase.analytics
 }
