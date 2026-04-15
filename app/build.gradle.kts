@@ -21,7 +21,7 @@ plugins {
     alias(libs.plugins.nowinandroid.android.application.compose)
     alias(libs.plugins.nowinandroid.android.application.flavors)
     alias(libs.plugins.nowinandroid.android.application.jacoco)
-    // alias(libs.plugins.nowinandroid.android.application.firebase) // 暫時關閉以支援自定義 ID
+    alias(libs.plugins.nowinandroid.android.application.firebase)
     alias(libs.plugins.nowinandroid.hilt)
     alias(libs.plugins.google.osslicenses)
     alias(libs.plugins.baselineprofile)
@@ -33,7 +33,7 @@ android {
     defaultConfig {
         applicationId = "com.wuc656.nowinandroid"
         versionCode = 5
-        versionName = "1.0.4" // wuc656 版
+        versionName = "1.0.4"
 
         // Custom test runner to set up Hilt dependency graph
         testInstrumentationRunner = "com.wuc656.nowinandroid.core.testing.NiaTestRunner"
@@ -41,7 +41,6 @@ android {
 
     signingConfigs {
         create("release") {
-            // 從 local.properties 讀取設定，避免密碼洩漏到 GIT
             val properties = Properties()
             val localPropertiesFile = rootProject.file("local.properties")
             if (localPropertiesFile.exists()) {
@@ -73,20 +72,7 @@ android {
                           "proguard-rules.pro")
 
             signingConfig = signingConfigs.getByName("release")
-            // Ensure Baseline Profile is fresh for release builds.
             baselineProfile.automaticGenerationDuringBuild = true
-
-            // 新增偵錯符號設定，解決 Google Play 提示
-            ndk {
-                debugSymbolLevel = "FULL"
-            }
-            
-            // 強制包含原生程式庫的偵錯資訊
-            packaging {
-                jniLibs {
-                    keepDebugSymbols.add("**/*.so")
-                }
-            }
         }
     }
 
@@ -171,11 +157,7 @@ dependencies {
 }
 
 baselineProfile {
-    // Don't build on every iteration of a full assemble.
-    // Instead, enable generation directly for the release build variant.
     automaticGenerationDuringBuild = false
-
-    // Make use of Dex Layout Optimizations via Startup Profiles
     dexLayoutOptimization = true
 }
 

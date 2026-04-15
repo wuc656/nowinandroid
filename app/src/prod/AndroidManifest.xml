@@ -14,13 +14,9 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application>
-        <!-- Enable Firebase analytics for `prod` builds -->
-        <meta-data
-            tools:replace="android:value"
-            android:name="firebase_analytics_collection_deactivated"
-            android:value="false" />
+        <!-- Firebase is safely handled in AnalyticsModule and FirebaseAnalyticsHelper. -->
+        <!-- We keep the default initialization to avoid breaking the dependency graph of other libraries. -->
     </application>
 </manifest>

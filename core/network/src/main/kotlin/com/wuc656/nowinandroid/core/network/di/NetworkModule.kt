@@ -95,16 +95,6 @@ internal object NetworkModule {
                     .maxSizeBytes(250 * 1024 * 1024)
                     .build()
             }
-            // 針對高螢幕刷新率設備優化
-            .crossfade(true)
-            .allowHardware(true)
-            // 假設大多數內容圖片是版本化的 URL
-            .respectCacheHeaders(false)
-            .apply {
-                if (BuildConfig.DEBUG) {
-                    logger(DebugLogger())
-                }
-            }
             .build()
     }
 }

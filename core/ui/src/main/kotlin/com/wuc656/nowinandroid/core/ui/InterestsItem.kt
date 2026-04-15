@@ -52,17 +52,17 @@ fun InterestsItem(
     description: String = "",
     isSelected: Boolean = false,
 ) {
-    val translatedName = rememberTranslatedName(name)
-    val translatedDescription = rememberTranslatedDescription(description)
     ListItem(
         leadingContent = {
             InterestsIcon(topicImageUrl, iconModifier.size(48.dp))
         },
         headlineContent = {
-            Text(text = translatedName)
+            Text(text = rememberTranslatedName(name))
         },
         supportingContent = {
-            Text(text = translatedDescription)
+            if (description.isNotEmpty()) {
+                Text(text = rememberTranslatedDescription(description))
+            }
         },
         trailingContent = {
             NiaIconToggleButton(

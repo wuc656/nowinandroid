@@ -55,6 +55,11 @@ object TopicLocalization {
         "The latest news on background work and WorkManager." to "關於背景任務與 WorkManager 的最新消息。",
         "The latest news on Android camera and media APIs." to "關於 Android 相機與媒體 API 的最新消息。",
     )
+
+    val uiStrings = mapOf(
+        "FOLLOWING" to "已追蹤",
+        "NOT FOLLOWING" to "未追蹤",
+    )
 }
 
 @Composable
@@ -65,4 +70,9 @@ fun rememberTranslatedName(name: String): String {
 @Composable
 fun rememberTranslatedDescription(description: String): String {
     return remember(description) { TopicLocalization.descriptionMap[description] ?: description }
+}
+
+@Composable
+fun rememberTranslatedUiString(key: String): String {
+    return remember(key) { TopicLocalization.uiStrings[key] ?: key }
 }
