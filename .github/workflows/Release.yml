@@ -8,8 +8,6 @@ jobs:
     name: "Manual Sign & Build"
     runs-on: ubuntu-latest
     timeout-minutes: 60
-    permissions:
-      contents: write
 
     steps:
       - name: Checkout
@@ -38,15 +36,14 @@ jobs:
       - name: Build Production Release (APK & AAB)
         run: ./gradlew :app:assembleProdRelease :app:bundleProdRelease --stacktrace
 
-      # 使用 Draft Release 來存放檔案，下載時就不會是 ZIP，且只有開發者看得到
-      - name: Create Draft Release and Upload Assets
-        uses: softprops/action-gh-release@v2
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
         with:
-          tag_name: "v${{ github.run_number }}-build"
-          name: "Build #${{ github.run_number }} for Play Store"
-          draft: true
-          files: |
-            app/build/outputs/apk/prod/release/app-prod-release.apk
-            app/build/outputs/bundle/prodRelease/app-prod-release.aab
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: prod-release-apk
+          path: app/build/outputs/apk/prod/release/app-prod-release.apk
+
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: prod-release-aab
+          path: app/build/outputs/bundle/prodRelease/app-prod-release.aab
