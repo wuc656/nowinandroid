@@ -9,7 +9,7 @@ on:
 
 jobs:
   test_and_build:
-    name: "Complete Quality Check (AGP 9.1.1)"
+    name: "Complete Quality Check"
     runs-on: ubuntu-latest
     timeout-minutes: 60
 
