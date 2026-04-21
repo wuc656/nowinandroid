@@ -26,9 +26,13 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: wrapper # 確保使用專案定義的最新 Gradle 版本
+          gradle-version: wrapper
 
-      - name: Check spotless (Formatting)
+      # 先自動修復格式問題，避免因為空格或 Header 導致 CI 失敗
+      - name: Fix formatting with Spotless
+        run: ./gradlew spotlessApply
+
+      - name: Check spotless (Final Verification)
         run: ./gradlew spotlessCheck
 
       - name: Run Lint (Static Analysis)
