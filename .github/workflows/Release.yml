@@ -1,11 +1,11 @@
 name: Production Release
 
 on:
-  workflow_dispatch: # 僅限手動觸發，防止誤點或自動執行
+  workflow_dispatch:
 
 jobs:
   release:
-    name: "Manual Sign & Publish"
+    name: "Manual Sign & Build"
     runs-on: ubuntu-latest
     timeout-minutes: 60
 
@@ -36,33 +36,14 @@ jobs:
       - name: Build Production Release (APK & AAB)
         run: ./gradlew :app:assembleProdRelease :app:bundleProdRelease --stacktrace
 
-      - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
         with:
-          tag_name: "v${{ github.run_number }}-prod" # 手動觸發時使用執行序號作為標籤
-          release_name: "Release Manual Build #${{ github.run_number }}"
-          draft: false
-          prerelease: false
+          name: app-prod-release-apk
+          path: app/build/outputs/apk/prod/release/app-prod-release.apk
 
-      - name: Upload APK
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload AAB Artifact
+        uses: actions/upload-artifact@v4
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: app/build/outputs/apk/prod/release/app-prod-release.apk
-          asset_name: app-prod-release-manual-${{ github.run_number }}.apk
-          asset_content_type: application/vnd.android.package-archive
-
-      - name: Upload AAB
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: app/build/outputs/bundle/prodRelease/app-prod-release.aab
-          asset_name: app-prod-release-manual-${{ github.run_number }}.aab
-          asset_content_type: application/octet-stream
+          name: app-prod-release-aab
+          path: app/build/outputs/bundle/prodRelease/app-prod-release.aab
