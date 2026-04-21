@@ -32,7 +32,7 @@ fun TopicsTabContent(
         LazyColumn(
             state = scrollableState,
             modifier = Modifier
-                .testTag("interests:topics")
+                .testTag(LIST_PANE_TEST_TAG)
                 .windowInsetsPadding(WindowInsets.safeDrawing)
                 .fillMaxSize(),
         ) {
