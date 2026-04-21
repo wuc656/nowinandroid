@@ -34,6 +34,8 @@ import com.wuc656.nowinandroid.core.ui.FollowableTopicPreviewParameterProvider
 import com.wuc656.nowinandroid.core.ui.TrackScreenViewEvent
 import com.wuc656.nowinandroid.feature.interests.api.R
 
+const val LIST_PANE_TEST_TAG = "interests:topics"
+
 @Composable
 fun InterestsScreen(
     onTopicClick: (String) -> Unit,
