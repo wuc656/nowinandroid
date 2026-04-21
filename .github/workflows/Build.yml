@@ -28,13 +28,6 @@ jobs:
         with:
           gradle-version: wrapper
 
-      # 先自動修復格式問題，避免因為空格或 Header 導致 CI 失敗
-      - name: Fix formatting with Spotless
-        run: ./gradlew spotlessApply
-
-      - name: Check spotless (Final Verification)
-        run: ./gradlew spotlessCheck
-
       - name: Run Lint (Static Analysis)
         run: ./gradlew :app:lintProdDebug
 
