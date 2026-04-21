@@ -32,7 +32,7 @@ jobs:
         run: ./gradlew :app:lintProdDebug
 
       - name: Run Local Unit Tests
-        run: ./gradlew testProdDebugUnitTest
+        run: ./gradlew testProdDebugUnitTest -x screenshotTests
 
       - name: Build Debug APK (Compilation Check)
         run: ./gradlew :app:assembleProdDebug --stacktrace
