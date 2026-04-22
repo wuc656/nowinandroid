@@ -72,6 +72,7 @@ class TabsScreenshotTests {
                 }
             }
         }
+        composeTestRule.waitForIdle()
         composeTestRule.onRoot()
             .captureRoboImage(
                 "src/test/screenshots/Tabs/Tabs_fontScale2.png",
