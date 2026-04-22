@@ -72,7 +72,6 @@ android {
                           "proguard-rules.pro")
 
             signingConfig = signingConfigs.getByName("release")
-            baselineProfile.automaticGenerationDuringBuild = true
         }
     }
 
@@ -83,6 +82,23 @@ android {
     }
     testOptions.unitTests.isIncludeAndroidResources = true
     namespace = "com.wuc656.nowinandroid"
+    compileSdk {
+        version = release(36) {
+            minorApiLevel = 1
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    buildFeatures {
+        viewBinding = true
+    }
+    dependenciesInfo {
+        includeInApk = true
+        includeInBundle = true
+    }
+    buildToolsVersion = "37.0.0"
 }
 
 dependencies {
@@ -159,6 +175,13 @@ dependencies {
 baselineProfile {
     automaticGenerationDuringBuild = false
     dexLayoutOptimization = true
+    variants {
+        configureEach {
+            if (name.contains("release", ignoreCase = true)) {
+                automaticGenerationDuringBuild = true
+            }
+        }
+    }
 }
 
 dependencyGuard {

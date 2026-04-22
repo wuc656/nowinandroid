@@ -94,7 +94,7 @@ fun TopicScreen(
         onBackClick = onBackClick,
         onFollowClick = viewModel::followTopicToggle,
         onBookmarkChanged = viewModel::bookmarkNews,
-        onNewsResourceViewed = { viewModel.setNewsResourceViewed(it, true) },
+        onNewsResourceViewed = { viewModel.setNewsResourceViewed(it, viewed = true) },
         onTopicClick = onTopicClick,
     )
 }

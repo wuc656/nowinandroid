@@ -20,12 +20,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
+import androidx.compose.material3.SecondaryTabRow
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -72,7 +72,7 @@ fun NiaTab(
 }
 
 /**
- * Now in Android tab row. Wraps Material 3 [TabRow].
+ * Now in Android tab row. Wraps Material 3 [SecondaryTabRow].
  *
  * @param selectedTabIndex The index of the currently selected tab.
  * @param modifier Modifier to be applied to the tab row.
@@ -85,14 +85,14 @@ fun NiaTabRow(
     modifier: Modifier = Modifier,
     tabs: @Composable () -> Unit,
 ) {
-    TabRow(
+    SecondaryTabRow(
         selectedTabIndex = selectedTabIndex,
         modifier = modifier,
         containerColor = Color.Transparent,
         contentColor = MaterialTheme.colorScheme.onSurface,
-        indicator = { tabPositions ->
+        indicator = {
             TabRowDefaults.SecondaryIndicator(
-                modifier = Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
+                modifier = Modifier.tabIndicatorOffset(selectedTabIndex, matchContentSize = true),
                 height = 2.dp,
                 color = MaterialTheme.colorScheme.onSurface,
             )
@@ -105,7 +105,7 @@ fun NiaTabRow(
 @Composable
 fun TabsPreview() {
     NiaTheme {
-        val titles = listOf("Topics", "People")
+        val titles = NiaTabsPreviewData.titles
         NiaTabRow(selectedTabIndex = 0) {
             titles.forEachIndexed { index, title ->
                 NiaTab(
@@ -116,6 +116,11 @@ fun TabsPreview() {
             }
         }
     }
+}
+
+@Immutable
+private object NiaTabsPreviewData {
+    val titles = listOf("Topics", "People")
 }
 
 object NiaTabDefaults {

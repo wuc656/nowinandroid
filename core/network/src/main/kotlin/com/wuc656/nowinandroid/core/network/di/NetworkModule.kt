@@ -22,7 +22,6 @@ import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
-import coil.util.DebugLogger
 import com.wuc656.nowinandroid.core.network.BuildConfig
 import com.wuc656.nowinandroid.core.network.demo.DemoAssetManager
 import dagger.Module

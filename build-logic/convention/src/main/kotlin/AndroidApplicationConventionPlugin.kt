@@ -21,6 +21,7 @@ import com.wuc656.nowinandroid.configureGradleManagedDevices
 import com.wuc656.nowinandroid.configureKotlinAndroid
 import com.wuc656.nowinandroid.configurePrintApksTask
 import com.wuc656.nowinandroid.configureSpotlessForAndroid
+import com.wuc656.nowinandroid.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -35,7 +36,7 @@ abstract class AndroidApplicationConventionPlugin : Plugin<Project> {
 
             extensions.configure<ApplicationExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = 36
+                defaultConfig.targetSdk = libs.findVersion("targetSdk").get().toString().toInt()
                 testOptions.animationsDisabled = true
                 configureGradleManagedDevices(this)
             }

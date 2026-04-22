@@ -35,10 +35,10 @@ internal fun Project.configureKotlinAndroid(
     commonExtension: CommonExtension,
 ) {
     commonExtension.apply {
-        compileSdk = 36
+        compileSdk = libs.findVersion("compileSdk").get().toString().toInt()
 
         defaultConfig.apply {
-            minSdk = 23
+            minSdk = libs.findVersion("minSdk").get().toString().toInt()
         }
 
         compileOptions.apply {
@@ -87,23 +87,24 @@ private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() =
     }.apply {
         jvmTarget = JvmTarget.JVM_11
         allWarningsAsErrors = warningsAsErrors
-        freeCompilerArgs.add(
-            // Enable experimental coroutines APIs, including Flow
-            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-        )
-        freeCompilerArgs.add(
-            /**
-             * Remove this args after Phase 3.
-             * https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-consistent-copy-visibility/#deprecation-timeline
-             *
-             * Deprecation timeline
-             * Phase 3. (Supposedly Kotlin 2.2 or Kotlin 2.3).
-             * The default changes.
-             * Unless ExposedCopyVisibility is used, the generated 'copy' method has the same visibility as the primary constructor.
-             * The binary signature changes. The error on the declaration is no longer reported.
-             * '-Xconsistent-data-class-copy-visibility' compiler flag and ConsistentCopyVisibility annotation are now unnecessary.
-             */
-            "-Xconsistent-data-class-copy-visibility",
+        freeCompilerArgs.addAll(
+            listOf(
+                // Enable experimental coroutines APIs, including Flow
+                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                /**
+                 * Remove this args after Phase 3.
+                 * https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-consistent-copy-visibility/#deprecation-timeline
+                 *
+                 * Deprecation timeline
+                 * Phase 3. (Supposedly Kotlin 2.2 or Kotlin 2.3).
+                 * The default changes.
+                 * Unless ExposedCopyVisibility is used, the generated 'copy' method has the same visibility as the primary constructor.
+                 * The binary signature changes. The error on the declaration is no longer reported.
+                 * '-Xconsistent-data-class-copy-visibility' compiler flag and ConsistentCopyVisibility annotation are now unnecessary.
+                 */
+                "-Xconsistent-data-class-copy-visibility",
+                "-Xannotation-default-target=param-property",
+            )
         )
     }
 }

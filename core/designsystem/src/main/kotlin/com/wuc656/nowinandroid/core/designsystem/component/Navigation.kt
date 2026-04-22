@@ -36,6 +36,7 @@ import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffo
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldDefaults
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScope
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -266,17 +267,9 @@ class NiaNavigationSuiteScope internal constructor(
 @ThemePreviews
 @Composable
 fun NiaNavigationBarPreview() {
-    val items = listOf("For you", "Saved", "Interests")
-    val icons = listOf(
-        NiaIcons.UpcomingBorder,
-        NiaIcons.BookmarksBorder,
-        NiaIcons.Grid3x3,
-    )
-    val selectedIcons = listOf(
-        NiaIcons.Upcoming,
-        NiaIcons.Bookmarks,
-        NiaIcons.Grid3x3,
-    )
+    val items = NiaNavigationPreviewData.items
+    val icons = NiaNavigationPreviewData.icons
+    val selectedIcons = NiaNavigationPreviewData.selectedIcons
 
     NiaTheme {
         NiaNavigationBar {
@@ -306,17 +299,9 @@ fun NiaNavigationBarPreview() {
 @ThemePreviews
 @Composable
 fun NiaNavigationRailPreview() {
-    val items = listOf("For you", "Saved", "Interests")
-    val icons = listOf(
-        NiaIcons.UpcomingBorder,
-        NiaIcons.BookmarksBorder,
-        NiaIcons.Grid3x3,
-    )
-    val selectedIcons = listOf(
-        NiaIcons.Upcoming,
-        NiaIcons.Bookmarks,
-        NiaIcons.Grid3x3,
-    )
+    val items = NiaNavigationPreviewData.items
+    val icons = NiaNavigationPreviewData.icons
+    val selectedIcons = NiaNavigationPreviewData.selectedIcons
 
     NiaTheme {
         NiaNavigationRail {
@@ -341,6 +326,21 @@ fun NiaNavigationRailPreview() {
             }
         }
     }
+}
+
+@Immutable
+private object NiaNavigationPreviewData {
+    val items = listOf("For you", "Saved", "Interests")
+    val icons = listOf(
+        NiaIcons.UpcomingBorder,
+        NiaIcons.BookmarksBorder,
+        NiaIcons.Grid3x3,
+    )
+    val selectedIcons = listOf(
+        NiaIcons.Upcoming,
+        NiaIcons.Bookmarks,
+        NiaIcons.Grid3x3,
+    )
 }
 
 /**

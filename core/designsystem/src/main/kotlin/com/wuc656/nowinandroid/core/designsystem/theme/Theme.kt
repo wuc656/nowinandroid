@@ -241,8 +241,9 @@ fun NiaTheme(
         MaterialTheme(
             colorScheme = colorScheme,
             typography = NiaTypography,
-            content = content,
-        )
+        ) {
+            content()
+        }
     }
 }
 

@@ -38,7 +38,6 @@ import com.wuc656.nowinandroid.MainActivity
 import com.wuc656.nowinandroid.R
 import com.wuc656.nowinandroid.core.data.repository.NewsRepository
 import com.wuc656.nowinandroid.core.data.repository.TopicsRepository
-import com.wuc656.nowinandroid.core.model.data.Topic
 import com.wuc656.nowinandroid.core.rules.GrantPostNotificationsPermissionRule
 import com.wuc656.nowinandroid.feature.interests.impl.LIST_PANE_TEST_TAG
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -265,7 +264,7 @@ class NavigationTest {
 
             // Select the last topic
             val topic = runBlocking {
-                topicsRepository.getTopics().first().sortedBy(Topic::name).last()
+                topicsRepository.getTopics().first().maxBy { it.name }
             }
             onNodeWithTag(LIST_PANE_TEST_TAG).performScrollToNode(hasText(topic.name))
             onNodeWithText(topic.name).performClick()

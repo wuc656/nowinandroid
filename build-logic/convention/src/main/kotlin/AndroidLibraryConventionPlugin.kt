@@ -37,8 +37,8 @@ abstract class AndroidLibraryConventionPlugin : Plugin<Project> {
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
-                testOptions.targetSdk = 36
-                lint.targetSdk = 36
+                testOptions.targetSdk = libs.findVersion("targetSdk").get().toString().toInt()
+                lint.targetSdk = libs.findVersion("targetSdk").get().toString().toInt()
                 defaultConfig.testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                 testOptions.animationsDisabled = true
                 configureFlavors(this)
@@ -55,11 +55,16 @@ abstract class AndroidLibraryConventionPlugin : Plugin<Project> {
             }
             configureSpotlessForAndroid()
             dependencies {
-                "androidTestImplementation"(libs.findLibrary("kotlin.test").get())
                 "testImplementation"(libs.findLibrary("kotlin.test").get())
                 "testImplementation"(libs.findLibrary("junit").get())
 
                 "implementation"(libs.findLibrary("androidx.tracing.ktx").get())
+            }
+
+            if (project.projectDir.resolve("src/androidTest").exists()) {
+                dependencies {
+                    "androidTestImplementation"(libs.findLibrary("kotlin.test").get())
+                }
             }
         }
     }

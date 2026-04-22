@@ -24,7 +24,7 @@ android {
     namespace = "com.wuc656.nowinandroid.benchmarks"
 
     defaultConfig {
-        minSdk = 28
+        minSdk = libs.versions.benchmarkMinSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "APP_BUILD_TYPE_SUFFIX", "\"\"")
