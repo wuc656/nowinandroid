@@ -1,25 +1,19 @@
-**DO NOT CREATE A PULL REQUEST WITHOUT READING THESE INSTRUCTIONS**
+## Description
+<!-- Provide a clear description of what this PR does and why it is needed. -->
 
-## Instructions
-Thanks for submitting a pull request. To accept your pull request we need you do a few things: 
+## Changes
+<!-- List the major changes introduced by this PR. -->
+- 
 
-**If this is your first pull request**
+## Testing
+<!-- How did you test these changes? Include variant used and steps to reproduce. -->
+- [ ] Local tests passed: `./gradlew testProdDebug`
+- [ ] Lint check passed: `./gradlew lintProdDebug`
+- [ ] Code formatted: `./gradlew spotlessApply`
 
-- [Sign the contributors license agreement](https://cla.developers.google.com/)
+## Screenshots / Videos
+<!-- If this PR changes the UI, please provide screenshots or screen recordings. -->
 
-**Ensure tests pass and code is formatted correctly**
-
-- Run local tests on the `DemoDebug` variant by running `./gradlew testDemoDebug`
-- Fix code formatting: `./gradlew spotlessApply`
-
-**Add a description**
-
-We need to know what you've done and why you've done it. Include a summary of what your pull request contains, and why you have made these changes. Include links to any relevant issues which it fixes.
-
-[Here's an example](https://github.com/android/nowinandroid/pull/1257).
-
-**NOW DELETE THIS LINE AND EVERYTHING ABOVE IT**
-
-**What I have done and why**
-
-\<add your PR description here\> 
+## Related Issues
+<!-- Link to any relevant issues using 'Fixes #123' or 'Closes #456'. -->
+Fixes #

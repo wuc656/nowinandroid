@@ -1,16 +1,17 @@
 name: Production Release
 
 on:
-  workflow_dispatch: # 手動觸發
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   release:
     name: "Manual Sign & Build"
     runs-on: ubuntu-latest
     timeout-minutes: 60
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,12 +24,16 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: true # Release builds usually don't need to write to the common CI cache
 
       - name: Decode Keystore
+        if: "${{ secrets.SIGNING_KEY != '' }}"
         run: |
           echo "${{ secrets.SIGNING_KEY }}" | base64 --decode > app/release.jks
 
       - name: Create local.properties
+        if: "${{ secrets.SIGNING_KEY != '' }}"
         run: |
           echo "signing.storeFilePath=release.jks" >> local.properties
           echo "signing.storePassword=${{ secrets.STORE_PASSWORD }}" >> local.properties
@@ -36,16 +41,12 @@ jobs:
           echo "signing.keyPassword=${{ secrets.KEY_PASSWORD }}" >> local.properties
 
       - name: Build Production Release (APK & AAB)
-        run: ./gradlew :app:assembleProdRelease :app:bundleProdRelease --stacktrace
+        run: ./gradlew :app:bundleProdRelease :app:assembleProdRelease --stacktrace
 
-      - name: Upload APK
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: prod-release-apk
-          path: app/build/outputs/apk/prod/release/app-prod-release.apk
-
-      - name: Upload AAB
-        uses: actions/upload-artifact@v4
-        with:
-          name: prod-release-aab
-          path: app/build/outputs/bundle/prodRelease/app-prod-release.aab
+          name: prod-release-artifacts
+          path: |
+            app/build/outputs/apk/prod/release/*.apk
+            app/build/outputs/bundle/prodRelease/*.aab
