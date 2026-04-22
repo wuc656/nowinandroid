@@ -190,22 +190,20 @@ class ForYouScreenScreenshotTests {
     private fun ForYouScreenPopulatedAndLoading() {
         NiaTheme {
             NiaBackground {
-                NiaTheme {
-                    ForYouScreen(
-                        isSyncing = true,
-                        onboardingUiState = OnboardingUiState.Loading,
-                        feedState = Success(
-                            feed = userNewsResources,
-                        ),
-                        onTopicCheckedChanged = { _, _ -> },
-                        saveFollowedTopics = {},
-                        onNewsResourcesCheckedChanged = { _, _ -> },
-                        onNewsResourceViewed = {},
-                        onTopicClick = {},
-                        deepLinkedUserNewsResource = null,
-                        onDeepLinkOpened = {},
-                    )
-                }
+                ForYouScreen(
+                    isSyncing = true,
+                    onboardingUiState = OnboardingUiState.Loading,
+                    feedState = Success(
+                        feed = userNewsResources,
+                    ),
+                    onTopicCheckedChanged = { _, _ -> },
+                    saveFollowedTopics = {},
+                    onNewsResourcesCheckedChanged = { _, _ -> },
+                    onNewsResourceViewed = {},
+                    onTopicClick = {},
+                    deepLinkedUserNewsResource = null,
+                    onDeepLinkOpened = {},
+                )
             }
         }
     }

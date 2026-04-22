@@ -175,6 +175,7 @@ class InterestsListDetailScreenTest {
 
             val firstTopic = getTopics().first()
             onNodeWithText(firstTopic.name).performClick()
+            waitForIdle()
 
             onNodeWithTag(LIST_PANE_TEST_TAG).assertIsNotDisplayed()
             onNodeWithText(placeholderText).assertIsNotDisplayed()
@@ -197,6 +198,7 @@ class InterestsListDetailScreenTest {
 
             waitForIdle()
             Espresso.pressBack()
+            waitForIdle()
 
             onNodeWithTag(LIST_PANE_TEST_TAG).assertIsDisplayed()
             onNodeWithText(placeholderText).assertIsNotDisplayed()

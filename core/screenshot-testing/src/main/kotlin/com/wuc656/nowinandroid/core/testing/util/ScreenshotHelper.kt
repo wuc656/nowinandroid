@@ -197,11 +197,9 @@ fun <A : ComponentActivity> AndroidComposeTestRule<ActivityScenarioRule<A>, A>.c
     // Create permutations
     darkModeValues.forEach { isDarkMode ->
         darkMode = isDarkMode
-        val darkModeDesc = if (isDarkMode) "dark" else "light"
 
         androidThemeValues.forEach { isAndroidTheme ->
             androidTheme = isAndroidTheme
-            val androidThemeDesc = if (isAndroidTheme) "androidTheme" else "defaultTheme"
 
             dynamicThemingValues.forEach dynamicTheme@{ isDynamicTheming ->
                 // Skip tests with both Android Theme and Dynamic color as they're incompatible.
@@ -212,6 +210,10 @@ fun <A : ComponentActivity> AndroidComposeTestRule<ActivityScenarioRule<A>, A>.c
 
                 val filename = overrideFileName ?: name
 
+                val darkModeDesc = if (isDarkMode) "dark" else "light"
+                val androidThemeDesc = if (isAndroidTheme) "androidTheme" else "defaultTheme"
+
+                this.waitForIdle()
                 this.onRoot()
                     .captureRoboImage(
                         "src/test/screenshots/" +
