@@ -5,7 +5,6 @@ on:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   release:
@@ -26,15 +25,19 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          cache-read-only: true # Release builds usually don't need to write to the common CI cache
+          cache-read-only: true
 
       - name: Decode Keystore
-        if: "${{ secrets.SIGNING_KEY != '' }}"
+        env:
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+        if: ${{ env.SIGNING_KEY != '' }}
         run: |
-          echo "${{ secrets.SIGNING_KEY }}" | base64 --decode > app/release.jks
+          echo "$SIGNING_KEY" | base64 --decode > app/release.jks
 
       - name: Create local.properties
-        if: "${{ secrets.SIGNING_KEY != '' }}"
+        env:
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+        if: ${{ env.SIGNING_KEY != '' }}
         run: |
           echo "signing.storeFilePath=release.jks" >> local.properties
           echo "signing.storePassword=${{ secrets.STORE_PASSWORD }}" >> local.properties
