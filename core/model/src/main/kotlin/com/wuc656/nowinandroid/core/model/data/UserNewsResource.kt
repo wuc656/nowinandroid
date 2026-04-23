@@ -16,7 +16,7 @@
 
 package com.wuc656.nowinandroid.core.model.data
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * A [NewsResource] with additional user information such as whether the user is following the

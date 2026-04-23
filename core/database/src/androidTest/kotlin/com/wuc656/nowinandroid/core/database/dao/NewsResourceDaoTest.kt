@@ -22,7 +22,7 @@ import com.wuc656.nowinandroid.core.database.model.TopicEntity
 import com.wuc656.nowinandroid.core.database.model.asExternalModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import org.junit.Test
 import kotlin.test.assertEquals
 

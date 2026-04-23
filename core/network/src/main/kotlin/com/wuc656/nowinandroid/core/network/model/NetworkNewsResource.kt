@@ -18,7 +18,7 @@ package com.wuc656.nowinandroid.core.network.model
 
 import android.annotation.SuppressLint
 import com.wuc656.nowinandroid.core.model.data.NewsResource
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.serialization.Serializable
 
 /**

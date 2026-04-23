@@ -21,7 +21,7 @@ import com.wuc656.nowinandroid.core.model.data.Topic
 import com.wuc656.nowinandroid.core.network.model.NetworkNewsResource
 import com.wuc656.nowinandroid.core.network.model.NetworkTopic
 import com.wuc656.nowinandroid.core.network.model.asExternalModel
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import org.junit.Test
 import kotlin.test.assertEquals
 

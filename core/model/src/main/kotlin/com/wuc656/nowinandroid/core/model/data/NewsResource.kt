@@ -16,7 +16,7 @@
 
 package com.wuc656.nowinandroid.core.model.data
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * External data layer representation of a fully populated NiA news resource

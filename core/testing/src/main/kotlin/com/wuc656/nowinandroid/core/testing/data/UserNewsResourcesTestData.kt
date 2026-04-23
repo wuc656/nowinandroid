@@ -23,7 +23,7 @@ import com.wuc656.nowinandroid.core.model.data.NewsResource
 import com.wuc656.nowinandroid.core.model.data.ThemeBrand
 import com.wuc656.nowinandroid.core.model.data.UserData
 import com.wuc656.nowinandroid.core.model.data.UserNewsResource
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant

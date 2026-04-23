@@ -19,7 +19,7 @@ package com.wuc656.nowinandroid.core.database.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Defines an database entity that stored recent search queries.

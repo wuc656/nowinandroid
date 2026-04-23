@@ -75,7 +75,7 @@ import com.wuc656.nowinandroid.core.designsystem.theme.NiaTheme
 import com.wuc656.nowinandroid.core.model.data.FollowableTopic
 import com.wuc656.nowinandroid.core.model.data.NewsResource
 import com.wuc656.nowinandroid.core.model.data.UserNewsResource
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.datetime.toJavaInstant
 import kotlinx.datetime.toJavaZoneId
 import java.time.format.DateTimeFormatter

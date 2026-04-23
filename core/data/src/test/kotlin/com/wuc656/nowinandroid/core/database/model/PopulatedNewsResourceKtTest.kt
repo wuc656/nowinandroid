@@ -18,7 +18,7 @@ package com.wuc656.nowinandroid.core.database.model
 
 import com.wuc656.nowinandroid.core.model.data.NewsResource
 import com.wuc656.nowinandroid.core.model.data.Topic
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import org.junit.Test
 import kotlin.test.assertEquals
 

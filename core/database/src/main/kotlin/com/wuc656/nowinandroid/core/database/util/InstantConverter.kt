@@ -17,7 +17,7 @@
 package com.wuc656.nowinandroid.core.database.util
 
 import androidx.room.TypeConverter
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 internal class InstantConverter {
     @TypeConverter
