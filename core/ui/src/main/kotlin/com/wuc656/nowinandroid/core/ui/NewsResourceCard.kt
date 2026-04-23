@@ -76,8 +76,6 @@ import com.wuc656.nowinandroid.core.model.data.FollowableTopic
 import com.wuc656.nowinandroid.core.model.data.NewsResource
 import com.wuc656.nowinandroid.core.model.data.UserNewsResource
 import kotlin.time.Instant
-import kotlinx.datetime.toJavaInstant
-import kotlinx.datetime.toJavaZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
@@ -278,8 +276,8 @@ fun NotificationDot(
 fun dateFormatted(publishDate: Instant): String = DateTimeFormatter
     .ofLocalizedDate(FormatStyle.MEDIUM)
     .withLocale(Locale.getDefault())
-    .withZone(LocalTimeZone.current.toJavaZoneId())
-    .format(publishDate.toJavaInstant())
+    .withZone(java.time.ZoneId.of(LocalTimeZone.current.id))
+    .format(java.time.Instant.ofEpochMilli(publishDate.toEpochMilliseconds()))
 
 @Composable
 fun NewsResourceMetaData(
