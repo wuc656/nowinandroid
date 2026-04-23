@@ -22,7 +22,7 @@ import kotlinx.datetime.Instant
 
 data class RecentSearchQuery(
     val query: String,
-    val queriedDate: Instant = Clock.System.now(),
+    val queriedDate: Instant = kotlinx.datetime.Clock.System.now(),
 )
 
 fun RecentSearchQueryEntity.asExternalModel() = RecentSearchQuery(
