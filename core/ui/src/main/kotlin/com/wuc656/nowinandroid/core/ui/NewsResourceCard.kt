@@ -273,11 +273,20 @@ fun NotificationDot(
 }
 
 @Composable
-fun dateFormatted(publishDate: Instant): String = DateTimeFormatter
-    .ofLocalizedDate(FormatStyle.MEDIUM)
-    .withLocale(Locale.getDefault())
-    .withZone(java.time.ZoneId.of(LocalTimeZone.current.id))
-    .format(java.time.Instant.ofEpochMilli(publishDate.toEpochMilliseconds()))
+fun dateFormatted(publishDate: Instant): String {
+    val zoneId = LocalTimeZone.current.id
+    return remember(publishDate, zoneId) {
+        try {
+            DateTimeFormatter
+                .ofLocalizedDate(FormatStyle.MEDIUM)
+                .withLocale(Locale.getDefault())
+                .withZone(java.time.ZoneId.of(zoneId))
+                .format(java.time.Instant.ofEpochMilli(publishDate.toEpochMilliseconds()))
+        } catch (_: Exception) {
+            publishDate.toString().substringBefore('T')
+        }
+    }
+}
 
 @Composable
 fun NewsResourceMetaData(

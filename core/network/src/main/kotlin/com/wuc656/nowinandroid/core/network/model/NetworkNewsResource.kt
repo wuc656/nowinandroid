@@ -18,7 +18,6 @@ package com.wuc656.nowinandroid.core.network.model
 
 import android.annotation.SuppressLint
 import com.wuc656.nowinandroid.core.model.data.NewsResource
-import kotlin.time.Instant
 import kotlinx.serialization.Serializable
 
 /**
@@ -32,7 +31,7 @@ data class NetworkNewsResource(
     val content: String,
     val url: String,
     val headerImageUrl: String,
-    val publishDate: Instant,
+    val publishDate: kotlinx.datetime.Instant,
     val type: String,
     val topics: List<String> = emptyList(),
 )

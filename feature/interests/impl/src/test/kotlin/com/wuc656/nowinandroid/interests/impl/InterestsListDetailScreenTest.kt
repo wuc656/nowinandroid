@@ -38,6 +38,7 @@ import com.wuc656.nowinandroid.core.model.data.Topic
 import com.wuc656.nowinandroid.core.navigation.Navigator
 import com.wuc656.nowinandroid.core.navigation.rememberNavigationState
 import com.wuc656.nowinandroid.core.navigation.toEntries
+import com.wuc656.nowinandroid.core.ui.TopicLocalization
 import com.wuc656.nowinandroid.feature.interests.api.R
 import com.wuc656.nowinandroid.feature.interests.api.navigation.InterestsNavKey
 import com.wuc656.nowinandroid.feature.interests.impl.LIST_PANE_TEST_TAG
@@ -86,6 +87,9 @@ class InterestsListDetailScreenTest {
 
     private val Topic.testTag
         get() = "topic:${this.id}"
+
+    private val Topic.translatedName
+        get() = TopicLocalization.nameMap[this.name] ?: this.name
 
     @Before
     fun setup() {
@@ -154,11 +158,13 @@ class InterestsListDetailScreenTest {
                 }
             }
             val firstTopic = getTopics().first()
-            onNodeWithText(firstTopic.name).performClick()
+            onNodeWithText(firstTopic.translatedName).performClick()
             waitForIdle()
 
             onNodeWithTag(LIST_PANE_TEST_TAG).assertIsDisplayed()
             onNodeWithText(placeholderText).assertIsNotDisplayed()
+            // In expanded width, TopicScreen should be displayed in the detail pane
+            onNodeWithTag(firstTopic.testTag).assertExists()
             onNodeWithTag(firstTopic.testTag).assertIsDisplayed()
         }
     }
@@ -174,11 +180,13 @@ class InterestsListDetailScreenTest {
             }
 
             val firstTopic = getTopics().first()
-            onNodeWithText(firstTopic.name).performClick()
+            onNodeWithText(firstTopic.translatedName).performClick()
             waitForIdle()
 
+            // In compact width, only one pane is visible at a time
             onNodeWithTag(LIST_PANE_TEST_TAG).assertIsNotDisplayed()
             onNodeWithText(placeholderText).assertIsNotDisplayed()
+            onNodeWithTag(firstTopic.testTag).assertExists()
             onNodeWithTag(firstTopic.testTag).assertIsDisplayed()
         }
     }
@@ -194,12 +202,13 @@ class InterestsListDetailScreenTest {
             }
 
             val firstTopic = getTopics().first()
-            onNodeWithText(firstTopic.name).performClick()
+            onNodeWithText(firstTopic.translatedName).performClick()
 
             waitForIdle()
             Espresso.pressBack()
             waitForIdle()
 
+            onNodeWithTag(LIST_PANE_TEST_TAG).assertExists()
             onNodeWithTag(LIST_PANE_TEST_TAG).assertIsDisplayed()
             onNodeWithText(placeholderText).assertIsNotDisplayed()
             onNodeWithTag(firstTopic.testTag).assertIsNotDisplayed()
