@@ -66,7 +66,7 @@ turbine = "1.2.1"
 uiTestJunit4 = "1.9.0-rc01"
 
 # SDK Versions
-minSdk = "24"
+minSdk = "23"
 targetSdk = "36"
 compileSdk = "36"
 benchmarkMinSdk = "28"
