@@ -22,7 +22,8 @@ import com.wuc656.nowinandroid.core.database.dao.RecentSearchQueryDao
 import com.wuc656.nowinandroid.core.database.model.RecentSearchQueryEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
+import kotlin.time.Instant
 import javax.inject.Inject
 
 internal class DefaultRecentSearchRepository @Inject constructor(
@@ -32,7 +33,7 @@ internal class DefaultRecentSearchRepository @Inject constructor(
         recentSearchQueryDao.insertOrReplaceRecentSearchQuery(
             RecentSearchQueryEntity(
                 query = searchQuery,
-                queriedDate = kotlinx.datetime.Clock.System.now(),
+                queriedDate = Clock.System.now(),
             ),
         )
     }
