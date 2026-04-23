@@ -17,14 +17,13 @@
 package com.wuc656.nowinandroid.core.database.util
 
 import androidx.room.TypeConverter
-import kotlin.time.Instant
 
 internal class InstantConverter {
     @TypeConverter
-    fun longToInstant(value: Long?): Instant? =
-        value?.let(Instant::fromEpochMilliseconds)
+    fun longToInstant(value: Long?): kotlin.time.Instant? =
+        value?.let(kotlin.time.Instant::fromEpochMilliseconds)
 
     @TypeConverter
-    fun instantToLong(instant: Instant?): Long? =
+    fun instantToLong(instant: kotlin.time.Instant?): Long? =
         instant?.toEpochMilliseconds()
 }

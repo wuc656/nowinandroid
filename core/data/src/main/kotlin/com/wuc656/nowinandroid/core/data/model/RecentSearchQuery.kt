@@ -17,12 +17,10 @@
 package com.wuc656.nowinandroid.core.data.model
 
 import com.wuc656.nowinandroid.core.database.model.RecentSearchQueryEntity
-import kotlin.time.Clock
-import kotlin.time.Instant
 
 data class RecentSearchQuery(
     val query: String,
-    val queriedDate: Instant = Clock.System.now(),
+    val queriedDate: kotlin.time.Instant = kotlin.time.Clock.System.now(),
 )
 
 fun RecentSearchQueryEntity.asExternalModel() = RecentSearchQuery(

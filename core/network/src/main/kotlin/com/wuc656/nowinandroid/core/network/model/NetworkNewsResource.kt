@@ -31,7 +31,7 @@ data class NetworkNewsResource(
     val content: String,
     val url: String,
     val headerImageUrl: String,
-    val publishDate: kotlinx.datetime.Instant,
+    val publishDate: kotlin.time.Instant,
     val type: String,
     val topics: List<String> = emptyList(),
 )

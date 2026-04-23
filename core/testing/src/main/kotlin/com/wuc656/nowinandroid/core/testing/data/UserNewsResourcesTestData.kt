@@ -25,6 +25,7 @@ import com.wuc656.nowinandroid.core.model.data.UserData
 import com.wuc656.nowinandroid.core.model.data.UserNewsResource
 import kotlin.time.Instant
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 
@@ -48,8 +49,8 @@ val userNewsResourcesTestData: List<UserNewsResource> = UserData(
                 publishDate = Instant.fromEpochMilliseconds(
                     LocalDateTime(
                         year = 2022,
-                        monthNumber = 5,
-                        dayOfMonth = 4,
+                        month = Month.MAY,
+                        day = 4,
                         hour = 23,
                         minute = 0,
                         second = 0,

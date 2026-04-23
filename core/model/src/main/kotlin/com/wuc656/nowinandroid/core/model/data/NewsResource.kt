@@ -16,8 +16,6 @@
 
 package com.wuc656.nowinandroid.core.model.data
 
-import kotlin.time.Instant
-
 /**
  * External data layer representation of a fully populated NiA news resource
  */
@@ -27,7 +25,7 @@ data class NewsResource(
     val content: String,
     val url: String,
     val headerImageUrl: String?,
-    val publishDate: Instant,
+    val publishDate: kotlin.time.Instant,
     val type: String,
     val topics: List<Topic>,
 )

@@ -16,7 +16,6 @@
 
 package com.wuc656.nowinandroid.core.model.data
 
-import kotlin.time.Instant
 
 /**
  * A [NewsResource] with additional user information such as whether the user is following the
@@ -28,7 +27,7 @@ data class UserNewsResource internal constructor(
     val content: String,
     val url: String,
     val headerImageUrl: String?,
-    val publishDate: Instant,
+    val publishDate: kotlin.time.Instant,
     val type: String,
     val followableTopics: List<FollowableTopic>,
     val isSaved: Boolean,

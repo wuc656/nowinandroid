@@ -28,6 +28,7 @@ import com.wuc656.nowinandroid.core.model.data.UserNewsResource
 import com.wuc656.nowinandroid.core.ui.PreviewParameterData.newsResources
 import kotlin.time.Instant
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 
@@ -90,12 +91,12 @@ object PreviewParameterData {
                 publishDate = Instant.fromEpochMilliseconds(
                     LocalDateTime(
                         year = 2022,
-                        monthNumber = 5,
-                        dayOfMonth = 4,
+                        month = Month.MAY,
+                        day = 4,
                         hour = 23,
                         minute = 0,
                         second = 0,
-                        nanosecond = 0,
+                        nanosecond = 0
                     ).toInstant(TimeZone.UTC).toEpochMilliseconds(),
                 ),
                 type = "Codelab",

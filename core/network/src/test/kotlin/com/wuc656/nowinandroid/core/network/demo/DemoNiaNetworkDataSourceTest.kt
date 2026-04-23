@@ -22,6 +22,7 @@ import com.wuc656.nowinandroid.core.network.model.NetworkTopic
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.serialization.json.Json
@@ -72,8 +73,8 @@ class DemoNiaNetworkDataSourceTest {
                 headerImageUrl = "https://developer.android.com/images/hero-assets/android-basics-compose.svg",
                 publishDate = LocalDateTime(
                     year = 2022,
-                    monthNumber = 5,
-                    dayOfMonth = 4,
+                    month = Month.MAY,
+                    day = 4,
                     hour = 23,
                     minute = 0,
                     second = 0,
