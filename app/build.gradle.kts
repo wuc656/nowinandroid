@@ -32,8 +32,8 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.wuc656.nowinandroid"
-        versionCode = 6
-        versionName = "1.0.5"
+        versionCode = 7
+        versionName = "1.0.6"
 
         // Custom test runner to set up Hilt dependency graph
         testInstrumentationRunner = "com.wuc656.nowinandroid.core.testing.NiaTestRunner"
