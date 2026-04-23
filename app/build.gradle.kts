@@ -48,14 +48,17 @@ android {
                     properties.load(stream)
                 }
             }
-
-            val storeFilePath = properties.getProperty("signing.storeFilePath")
+            val storeFilePath = System.getenv("KEYSTORE_PATH") 
+                ?: properties.getProperty("signing.storeFilePath")
             if (storeFilePath != null) {
                 storeFile = file(storeFilePath)
             }
-            storePassword = properties.getProperty("signing.storePassword")
-            keyAlias = properties.getProperty("signing.keyAlias")
-            keyPassword = properties.getProperty("signing.keyPassword")
+            storePassword = System.getenv("STORE_PASSWORD") 
+                ?: properties.getProperty("signing.storePassword")
+            keyAlias = System.getenv("KEY_ALIAS") 
+                ?: properties.getProperty("signing.keyAlias")
+            keyPassword = System.getenv("KEY_PASSWORD") 
+                ?: properties.getProperty("signing.keyPassword")
         }
     }
 
