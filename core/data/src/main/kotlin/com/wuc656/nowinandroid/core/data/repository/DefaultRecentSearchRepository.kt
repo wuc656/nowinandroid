@@ -23,7 +23,6 @@ import com.wuc656.nowinandroid.core.database.model.RecentSearchQueryEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlin.time.Clock
-import kotlin.time.Instant
 import javax.inject.Inject
 
 internal class DefaultRecentSearchRepository @Inject constructor(
