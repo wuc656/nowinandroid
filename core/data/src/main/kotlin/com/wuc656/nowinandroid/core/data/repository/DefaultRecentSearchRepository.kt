@@ -32,7 +32,7 @@ internal class DefaultRecentSearchRepository @Inject constructor(
         recentSearchQueryDao.insertOrReplaceRecentSearchQuery(
             RecentSearchQueryEntity(
                 query = searchQuery,
-                queriedDate = Clock.System.now(),
+                queriedDate = kotlinx.datetime.Clock.System.now(),
             ),
         )
     }
