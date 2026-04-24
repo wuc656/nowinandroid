@@ -66,8 +66,12 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
         with:
+          cache-provider: 'enhanced'
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
-
+          gradle-home-cache-includes: |
+            caches
+            notifications
+            jdks
       - name: Run Unit Tests
         run: ./gradlew testProdDebug --project-prop "gradle.properties=.github/ci-gradle.properties"
 
@@ -88,7 +92,12 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
         with:
+          cache-provider: 'enhanced'
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+          gradle-home-cache-includes: |
+            caches
+            notifications
+            jdks
 
       - name: Build Debug APK
         run: ./gradlew :app:assembleProdDebug --project-prop "gradle.properties=.github/ci-gradle.properties"
