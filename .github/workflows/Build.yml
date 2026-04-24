@@ -8,6 +8,7 @@ on:
     paths-ignore:
       - '**.md'
       - 'docs/**'
+      - '.github/**'
   pull_request:
     paths-ignore:
       - '**.md'
@@ -38,7 +39,12 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
         with:
+          cache-provider: 'gradle-actions-caching'
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+          gradle-home-cache-includes: |
+            caches
+            notifications
+            jdks
 
       - name: Run Lint
         run: ./gradlew lintProdDebug --project-prop "gradle.properties=.github/ci-gradle.properties"
