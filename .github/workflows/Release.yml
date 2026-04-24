@@ -28,7 +28,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
         with:
-          cache-provider: 'gradle-actions-caching'
+          cache-provider: 'enhanced'
           cache-read-only: true
           gradle-home-cache-includes: |
             caches
