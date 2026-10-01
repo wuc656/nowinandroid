@@ -104,7 +104,7 @@ private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() =
                  */
                 "-Xconsistent-data-class-copy-visibility",
                 "-Xannotation-default-target=param-property",
-            )
+            ),
         )
     }
 }

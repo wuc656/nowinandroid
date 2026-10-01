@@ -16,9 +16,7 @@
 
 package com.wuc656.nowinandroid.sync.di
 
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.ktx.messaging
 import com.wuc656.nowinandroid.core.data.util.SyncManager
 import com.wuc656.nowinandroid.sync.status.FirebaseSyncSubscriber
 import com.wuc656.nowinandroid.sync.status.SyncSubscriber
@@ -46,6 +44,6 @@ abstract class SyncModule {
     companion object {
         @Provides
         @Singleton
-        internal fun provideFirebaseMessaging(): FirebaseMessaging = Firebase.messaging
+        internal fun provideFirebaseMessaging(): FirebaseMessaging = FirebaseMessaging.getInstance()
     }
 }

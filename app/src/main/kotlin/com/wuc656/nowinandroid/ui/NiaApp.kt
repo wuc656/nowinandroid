@@ -35,6 +35,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration.Indefinite
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
@@ -83,10 +84,8 @@ import com.wuc656.nowinandroid.feature.search.impl.navigation.searchEntry
 import com.wuc656.nowinandroid.feature.settings.impl.SettingsDialog
 import com.wuc656.nowinandroid.feature.topic.impl.navigation.topicEntry
 import com.wuc656.nowinandroid.navigation.TOP_LEVEL_NAV_ITEMS
-import com.wuc656.nowinandroid.feature.settings.impl.R as settingsR
-
-import androidx.compose.material3.SnackbarResult
 import com.wuc656.nowinandroid.update.InAppUpdateUiState
+import com.wuc656.nowinandroid.feature.settings.impl.R as settingsR
 
 @Composable
 fun NiaApp(

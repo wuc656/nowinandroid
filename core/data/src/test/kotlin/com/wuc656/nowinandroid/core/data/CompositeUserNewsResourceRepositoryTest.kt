@@ -26,9 +26,9 @@ import com.wuc656.nowinandroid.core.testing.repository.TestUserDataRepository
 import com.wuc656.nowinandroid.core.testing.repository.emptyUserData
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
-import kotlin.time.Instant
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.time.Instant
 
 class CompositeUserNewsResourceRepositoryTest {
 

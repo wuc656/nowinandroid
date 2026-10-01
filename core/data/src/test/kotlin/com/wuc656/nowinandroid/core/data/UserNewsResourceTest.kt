@@ -23,10 +23,10 @@ import com.wuc656.nowinandroid.core.model.data.ThemeBrand.DEFAULT
 import com.wuc656.nowinandroid.core.model.data.Topic
 import com.wuc656.nowinandroid.core.model.data.UserData
 import com.wuc656.nowinandroid.core.model.data.UserNewsResource
-import kotlin.time.Clock
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import kotlin.time.Clock
 
 class UserNewsResourceTest {
 
