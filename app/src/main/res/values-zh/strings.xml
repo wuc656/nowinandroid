@@ -19,4 +19,5 @@
     <string name="not_connected">⚠️ 您尚未連線至網際網路</string>
     <string name="update_downloaded">新版本已下载完成。</string>
     <string name="update_restart">立即重启</string>
+    <string name="rate_app">为应用评分</string>
 </resources>
