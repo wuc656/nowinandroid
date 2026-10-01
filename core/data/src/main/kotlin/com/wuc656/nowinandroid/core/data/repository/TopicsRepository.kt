@@ -24,6 +24,7 @@ interface TopicsRepository : Syncable {
     companion object {
         const val QUERY_TOPICS = "topics"
     }
+
     /**
      * Gets the available topics as a stream
      */

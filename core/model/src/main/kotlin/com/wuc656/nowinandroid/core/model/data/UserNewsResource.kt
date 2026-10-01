@@ -16,7 +16,6 @@
 
 package com.wuc656.nowinandroid.core.model.data
 
-
 /**
  * A [NewsResource] with additional user information such as whether the user is following the
  * news resource's topics and whether they have saved (bookmarked) this news resource.

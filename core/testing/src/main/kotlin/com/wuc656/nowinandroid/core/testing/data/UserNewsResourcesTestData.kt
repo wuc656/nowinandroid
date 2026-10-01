@@ -23,11 +23,11 @@ import com.wuc656.nowinandroid.core.model.data.NewsResource
 import com.wuc656.nowinandroid.core.model.data.ThemeBrand
 import com.wuc656.nowinandroid.core.model.data.UserData
 import com.wuc656.nowinandroid.core.model.data.UserNewsResource
-import kotlin.time.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
+import kotlin.time.Instant
 
 val userNewsResourcesTestData: List<UserNewsResource> = UserData(
     bookmarkedNewsResources = setOf("1", "4"),

@@ -75,10 +75,10 @@ import com.wuc656.nowinandroid.core.designsystem.theme.NiaTheme
 import com.wuc656.nowinandroid.core.model.data.FollowableTopic
 import com.wuc656.nowinandroid.core.model.data.NewsResource
 import com.wuc656.nowinandroid.core.model.data.UserNewsResource
-import kotlin.time.Instant
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
+import kotlin.time.Instant
 
 /**
  * [NewsResource] card used on the following screens: For You, Saved

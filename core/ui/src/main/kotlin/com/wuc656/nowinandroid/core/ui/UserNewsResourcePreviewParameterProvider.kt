@@ -26,11 +26,11 @@ import com.wuc656.nowinandroid.core.model.data.Topic
 import com.wuc656.nowinandroid.core.model.data.UserData
 import com.wuc656.nowinandroid.core.model.data.UserNewsResource
 import com.wuc656.nowinandroid.core.ui.PreviewParameterData.newsResources
-import kotlin.time.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
+import kotlin.time.Instant
 
 /**
  * This [PreviewParameterProvider](https://developer.android.com/reference/kotlin/androidx/compose/ui/tooling/preview/PreviewParameterProvider)
@@ -96,7 +96,7 @@ object PreviewParameterData {
                         hour = 23,
                         minute = 0,
                         second = 0,
-                        nanosecond = 0
+                        nanosecond = 0,
                     ).toInstant(TimeZone.UTC).toEpochMilliseconds(),
                 ),
                 type = "Codelab",
