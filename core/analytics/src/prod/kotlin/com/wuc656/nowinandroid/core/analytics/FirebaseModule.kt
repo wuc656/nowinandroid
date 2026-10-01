@@ -16,12 +16,12 @@
 
 package com.wuc656.nowinandroid.core.analytics
 
+import android.content.Context
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.ktx.Firebase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -30,5 +30,7 @@ import javax.inject.Singleton
 object FirebaseModule {
     @Provides
     @Singleton
-    fun provideFirebaseAnalytics(): FirebaseAnalytics = Firebase.analytics
+    fun provideFirebaseAnalytics(
+        @ApplicationContext context: Context,
+    ): FirebaseAnalytics = FirebaseAnalytics.getInstance(context)
 }
