@@ -32,8 +32,8 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.wuc656.nowinandroid"
-        versionCode = 8
-        versionName = "1.0.7"
+        versionCode = 9
+        versionName = "1.0.8"
 
         // Custom test runner to set up Hilt dependency graph
         testInstrumentationRunner = "com.wuc656.nowinandroid.core.testing.NiaTestRunner"
@@ -151,6 +151,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.google.play.app.update)
     implementation(libs.google.play.app.update.ktx)
+    implementation(libs.google.play.review)
+    implementation(libs.google.play.review.ktx)
 
     ksp(libs.hilt.compiler)
 
