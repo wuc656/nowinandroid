@@ -85,11 +85,16 @@ import com.wuc656.nowinandroid.feature.topic.impl.navigation.topicEntry
 import com.wuc656.nowinandroid.navigation.TOP_LEVEL_NAV_ITEMS
 import com.wuc656.nowinandroid.feature.settings.impl.R as settingsR
 
+import androidx.compose.material3.SnackbarResult
+import com.wuc656.nowinandroid.update.InAppUpdateUiState
+
 @Composable
 fun NiaApp(
     appState: NiaAppState,
     modifier: Modifier = Modifier,
     windowAdaptiveInfo: WindowAdaptiveInfo = currentWindowAdaptiveInfo(),
+    updateUiState: InAppUpdateUiState = InAppUpdateUiState.Idle,
+    onCompleteUpdate: () -> Unit = {},
 ) {
     val shouldShowGradientBackground = appState.navigationState.currentTopLevelKey == ForYouNavKey
     var showSettingsDialog by rememberSaveable { mutableStateOf(false) }
@@ -116,6 +121,23 @@ fun NiaApp(
                     )
                 }
             }
+
+            // Google Play 內嵌更新：當更新下載完成時，以 Snackbar 提示使用者重新啟動
+            val updateDownloadedMessage = stringResource(R.string.update_downloaded)
+            val updateRestartAction = stringResource(R.string.update_restart)
+            LaunchedEffect(updateUiState) {
+                if (updateUiState is InAppUpdateUiState.Downloaded) {
+                    val result = snackbarHostState.showSnackbar(
+                        message = updateDownloadedMessage,
+                        actionLabel = updateRestartAction,
+                        duration = Indefinite,
+                    )
+                    if (result == SnackbarResult.ActionPerformed) {
+                        onCompleteUpdate()
+                    }
+                }
+            }
+
             CompositionLocalProvider(LocalSnackbarHostState provides snackbarHostState) {
                 NiaApp(
                     appState = appState,

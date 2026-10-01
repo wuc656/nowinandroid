@@ -17,4 +17,6 @@
 <resources>
     <string name="app_name">Now in Android wuc656</string>
     <string name="not_connected">⚠️ You aren’t connected to the internet</string>
+    <string name="update_downloaded">An update has been downloaded.</string>
+    <string name="update_restart">Restart</string>
 </resources>
