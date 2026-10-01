@@ -16,6 +16,7 @@
 
 package com.wuc656.nowinandroid.core.analytics
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.Module
@@ -28,6 +29,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object FirebaseModule {
+    @SuppressLint("MissingPermission")
     @Provides
     @Singleton
     fun provideFirebaseAnalytics(
