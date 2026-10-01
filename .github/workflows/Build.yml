@@ -9,13 +9,20 @@ on:
       - '**.md'
       - 'docs/**'
       - '.github/**'
+      - '.gitignore'
+      - '.gitattributes'
+      - 'LICENSE'
   pull_request:
     paths-ignore:
       - '**.md'
       - 'docs/**'
+      - '.gitignore'
+      - '.gitattributes'
+      - 'LICENSE'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
