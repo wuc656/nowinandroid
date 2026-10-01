@@ -42,7 +42,7 @@ android {
     signingConfigs {
         create("release") {
             val properties = Properties()
-            val localPropertiesFile = rootProject.file("local.properties")
+            val localPropertiesFile = rootDir.resolve("local.properties")
             if (localPropertiesFile.exists()) {
                 localPropertiesFile.inputStream().use { stream ->
                     properties.load(stream)
