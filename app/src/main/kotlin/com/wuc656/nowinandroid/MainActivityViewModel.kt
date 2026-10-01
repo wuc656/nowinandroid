@@ -24,6 +24,8 @@ import com.wuc656.nowinandroid.core.data.repository.UserDataRepository
 import com.wuc656.nowinandroid.core.model.data.DarkThemeConfig
 import com.wuc656.nowinandroid.core.model.data.ThemeBrand
 import com.wuc656.nowinandroid.core.model.data.UserData
+import com.wuc656.nowinandroid.update.InAppUpdateHelper
+import com.wuc656.nowinandroid.update.InAppUpdateUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -34,6 +36,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
     userDataRepository: UserDataRepository,
+    val inAppUpdateHelper: InAppUpdateHelper,
 ) : ViewModel() {
     val uiState: StateFlow<MainActivityUiState> = userDataRepository.userData.map {
         Success(it)
@@ -42,6 +45,8 @@ class MainActivityViewModel @Inject constructor(
         initialValue = Loading,
         started = SharingStarted.WhileSubscribed(5_000),
     )
+
+    val updateUiState: StateFlow<InAppUpdateUiState> = inAppUpdateHelper.updateUiState
 }
 
 sealed interface MainActivityUiState {

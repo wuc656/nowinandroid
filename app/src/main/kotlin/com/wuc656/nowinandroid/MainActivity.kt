@@ -54,6 +54,9 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.IntentSenderRequest
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
@@ -76,6 +79,14 @@ class MainActivity : ComponentActivity() {
     lateinit var userNewsResourceRepository: UserNewsResourceRepository
 
     private val viewModel: MainActivityViewModel by viewModels()
+
+    private val updateResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartIntentSenderForResult(),
+    ) { result ->
+        if (result.resultCode != RESULT_OK) {
+            android.util.Log.d("MainActivity", "Update flow canceled or failed: ${result.resultCode}")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
@@ -139,6 +150,15 @@ class MainActivity : ComponentActivity() {
         // the UI.
         splashScreen.setKeepOnScreenCondition { viewModel.uiState.value.shouldKeepSplashScreen() }
 
+        // Google Play 內嵌更新：檢查是否有可用的更新並啟動彈性更新 (Flexible Update)
+        viewModel.inAppUpdateHelper.checkForUpdate { appUpdateInfo ->
+            viewModel.inAppUpdateHelper.startFlexibleUpdate(
+                activity = this,
+                launcher = updateResultLauncher,
+                appUpdateInfo = appUpdateInfo,
+            )
+        }
+
         setContent {
             val appState = rememberNiaAppState(
                 networkMonitor = networkMonitor,
@@ -147,6 +167,7 @@ class MainActivity : ComponentActivity() {
             )
 
             val currentTimeZone by appState.currentTimeZone.collectAsStateWithLifecycle()
+            val updateUiState by viewModel.updateUiState.collectAsStateWithLifecycle()
 
             CompositionLocalProvider(
                 LocalAnalyticsHelper provides analyticsHelper,
@@ -157,7 +178,11 @@ class MainActivity : ComponentActivity() {
                     androidTheme = themeSettings.androidTheme,
                     disableDynamicTheming = themeSettings.disableDynamicTheming,
                 ) {
-                    NiaApp(appState)
+                    NiaApp(
+                        appState = appState,
+                        updateUiState = updateUiState,
+                        onCompleteUpdate = { viewModel.inAppUpdateHelper.completeUpdate() },
+                    )
                 }
             }
         }
@@ -166,11 +191,18 @@ class MainActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
         lazyStats.get()?.isTrackingEnabled = true
+        // 恢復前台時再次確認是否有未完成或已下載的更新
+        viewModel.inAppUpdateHelper.checkForUpdate()
     }
 
     override fun onPause() {
         super.onPause()
         lazyStats.get()?.isTrackingEnabled = false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.inAppUpdateHelper.onDestroy()
     }
 }
 
