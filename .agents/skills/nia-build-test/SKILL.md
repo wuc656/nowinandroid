@@ -75,5 +75,3 @@ description: >-
 
 ## 5. 常見地雷與規範
 
-1. **UTF-8 No-BOM**：Windows 下新增 XML / Kotlin 檔案嚴禁攜帶 UTF-8 BOM，以防 AAPT2 解析崩潰。
-2. **Git Commit**：必須以繁體中文撰寫，並維持 GPG 數位簽署。若非互動環境逾時，可透過 GPG loopback 傳遞 passphrase 簽署。
