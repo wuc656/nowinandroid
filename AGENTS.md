@@ -60,7 +60,7 @@ The app and Android libraries have two product flavors: `demo` and `prod`, and t
 ## Antigravity AI Agent Rules & Token Optimization Guidelines
 
 - **Commit Language**: 所有 git commit message 必須使用繁體中文。
-- **Windows GPG Constraint**: 在 Windows 環境下執行 `git commit` 必須帶有 `--no-gpg-sign`，以避免 GPG agent 互動逾時。
+- **GPG Commit Signing**: 專案已配置 GPG 簽署。在背景非互動式環境中若無 Pinentry 彈窗或金鑰快取，可透過 GPG loopback/包裝腳本傳遞 passphrase 進行數位簽署，確保所有 commit 具備 Verified 驗證。
 - **UTF-8 No-BOM Requirement**: 建立或修改 Android XML / Kotlin 資源檔時，必須使用無 BOM 的純 UTF-8 編碼，嚴防 AAPT2 報錯 `Content is not allowed in prolog`。
 - **Token Efficiency & Fast Compilation**:
   - 驗證單一模組時優先編譯目標模組（例如 `./gradlew :app:compileProdDebugKotlin`），避免每次全專案 3000+ 任務全量編譯。
