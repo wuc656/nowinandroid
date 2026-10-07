@@ -59,7 +59,7 @@ jobs:
           export KEYSTORE_PATH=$GITHUB_WORKSPACE/release.keystore
         fi
         chmod +x gradlew
-        ./gradlew :app:compileDemoDebugSources --no-build-cache
+        ./gradlew :app:compileDemoDebugSources --no-build-cache -Porg.gradle.java.installations.auto-download=false
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v4
