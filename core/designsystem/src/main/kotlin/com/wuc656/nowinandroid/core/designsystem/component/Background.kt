@@ -247,3 +247,19 @@ fun GradientBackgroundAndroid() {
         NiaGradientBackground(Modifier.size(100.dp), content = {})
     }
 }
+
+@ThemePreviews
+@Composable
+fun MeshGradientBackgroundDefault() {
+    NiaTheme(disableDynamicTheming = true) {
+        NiaMeshGradientBackground(Modifier.size(100.dp), content = {})
+    }
+}
+
+@ThemePreviews
+@Composable
+fun MeshGradientBackgroundDynamic() {
+    NiaTheme(disableDynamicTheming = false) {
+        NiaMeshGradientBackground(Modifier.size(100.dp), content = {})
+    }
+}
