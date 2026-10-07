@@ -38,12 +38,17 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.activity.compose.PredictiveBackHandler
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
@@ -103,9 +108,29 @@ fun SettingsDialog(
      * is configured below. This should be removed when there's fix to
      * https://issuetracker.google.com/issues/221643630
      */
+    var backProgress by remember { mutableFloatStateOf(0f) }
+
+    PredictiveBackHandler { progressFlow ->
+        try {
+            progressFlow.collect { backEvent ->
+                backProgress = backEvent.progress
+            }
+            onDismiss()
+        } catch (e: java.util.concurrent.CancellationException) {
+            backProgress = 0f
+        }
+    }
+
     AlertDialog(
         properties = DialogProperties(usePlatformDefaultWidth = false),
-        modifier = Modifier.widthIn(max = minOf(configuration.screenWidthDp.dp - 80.dp, 560.dp)),
+        modifier = Modifier
+            .widthIn(max = minOf(configuration.screenWidthDp.dp - 80.dp, 560.dp))
+            .graphicsLayer {
+                val scale = 1f - (backProgress * 0.15f)
+                scaleX = scale
+                scaleY = scale
+                alpha = 1f - (backProgress * 0.35f)
+            },
         onDismissRequest = { onDismiss() },
         title = {
             Text(

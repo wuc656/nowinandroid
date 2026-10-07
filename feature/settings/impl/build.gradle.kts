@@ -25,6 +25,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
     implementation(libs.google.oss.licenses)
     implementation(projects.core.data)
