@@ -67,6 +67,7 @@ import androidx.navigation3.ui.NavDisplay
 import com.wuc656.nowinandroid.R
 import com.wuc656.nowinandroid.core.designsystem.component.NiaBackground
 import com.wuc656.nowinandroid.core.designsystem.component.NiaGradientBackground
+import com.wuc656.nowinandroid.core.designsystem.component.NiaMeshGradientBackground
 import com.wuc656.nowinandroid.core.designsystem.component.NiaNavigationSuiteScaffold
 import com.wuc656.nowinandroid.core.designsystem.component.NiaTopAppBar
 import com.wuc656.nowinandroid.core.designsystem.icon.NiaIcons
@@ -99,7 +100,7 @@ fun NiaApp(
     var showSettingsDialog by rememberSaveable { mutableStateOf(false) }
 
     NiaBackground(modifier = modifier) {
-        NiaGradientBackground(
+        NiaMeshGradientBackground(
             gradientColors = if (shouldShowGradientBackground) {
                 LocalGradientColors.current
             } else {

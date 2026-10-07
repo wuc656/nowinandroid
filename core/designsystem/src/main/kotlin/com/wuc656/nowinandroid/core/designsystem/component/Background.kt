@@ -140,6 +140,59 @@ fun NiaGradientBackground(
 }
 
 /**
+ * A modern mesh-style gradient background using multi-point radial color interpolation.
+ *
+ * @param modifier Modifier to be applied to the background.
+ * @param gradientColors The color scheme used for the multi-point mesh interpolation.
+ * @param content The background content.
+ */
+@Composable
+fun NiaMeshGradientBackground(
+    modifier: Modifier = Modifier,
+    gradientColors: GradientColors = LocalGradientColors.current,
+    content: @Composable () -> Unit,
+) {
+    val topColor by rememberUpdatedState(gradientColors.top)
+    val bottomColor by rememberUpdatedState(gradientColors.bottom)
+    val containerColor by rememberUpdatedState(gradientColors.container)
+
+    Surface(
+        color = if (containerColor == Color.Unspecified) Color.Transparent else containerColor,
+        modifier = modifier.fillMaxSize(),
+    ) {
+        Box(
+            Modifier
+                .fillMaxSize()
+                .drawWithCache {
+                    val brush1 = Brush.radialGradient(
+                        colors = listOf(
+                            if (topColor == Color.Unspecified) Color.Transparent else topColor.copy(alpha = 0.55f),
+                            Color.Transparent,
+                        ),
+                        center = Offset(0f, 0f),
+                        radius = size.width * 1.1f,
+                    )
+                    val brush2 = Brush.radialGradient(
+                        colors = listOf(
+                            if (bottomColor == Color.Unspecified) Color.Transparent else bottomColor.copy(alpha = 0.45f),
+                            Color.Transparent,
+                        ),
+                        center = Offset(size.width, size.height * 0.4f),
+                        radius = size.width * 0.9f,
+                    )
+
+                    onDrawBehind {
+                        drawRect(brush1)
+                        drawRect(brush2)
+                    }
+                },
+        ) {
+            content()
+        }
+    }
+}
+
+/**
  * Multipreview annotation that represents light and dark themes. Add this annotation to a
  * composable to render the both themes.
  */
