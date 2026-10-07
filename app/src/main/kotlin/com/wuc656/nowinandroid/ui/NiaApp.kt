@@ -55,6 +55,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.isCtrlPressed
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
@@ -75,6 +81,7 @@ import com.wuc656.nowinandroid.core.designsystem.theme.GradientColors
 import com.wuc656.nowinandroid.core.designsystem.theme.LocalGradientColors
 import com.wuc656.nowinandroid.core.navigation.Navigator
 import com.wuc656.nowinandroid.core.navigation.toEntries
+import com.wuc656.nowinandroid.feature.bookmarks.api.navigation.BookmarksNavKey
 import com.wuc656.nowinandroid.feature.bookmarks.impl.navigation.LocalSnackbarHostState
 import com.wuc656.nowinandroid.feature.bookmarks.impl.navigation.bookmarksEntry
 import com.wuc656.nowinandroid.feature.foryou.api.navigation.ForYouNavKey
@@ -182,6 +189,12 @@ internal fun NiaApp(
 
     val notificationDotColor = MaterialTheme.colorScheme.tertiary
 
+    val focusRequester = remember { FocusRequester() }
+
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+    }
+
     NiaNavigationSuiteScaffold(
         navigationSuiteItems = {
             TOP_LEVEL_NAV_ITEMS.forEach { (navKey, navItem) ->
@@ -218,9 +231,32 @@ internal fun NiaApp(
         windowAdaptiveInfo = windowAdaptiveInfo,
     ) {
         Scaffold(
-            modifier = modifier.semantics {
-                testTagsAsResourceId = true
-            },
+            modifier = modifier
+                .focusRequester(focusRequester)
+                .onKeyEvent { keyEvent ->
+                    if (keyEvent.isCtrlPressed) {
+                        when (keyEvent.key) {
+                            Key.F -> {
+                                navigator.navigate(SearchNavKey)
+                                true
+                            }
+                            Key.B -> {
+                                navigator.navigate(BookmarksNavKey)
+                                true
+                            }
+                            Key.Comma -> {
+                                onTopAppBarActionClick()
+                                true
+                            }
+                            else -> false
+                        }
+                    } else {
+                        false
+                    }
+                }
+                .semantics {
+                    testTagsAsResourceId = true
+                },
             containerColor = Color.Transparent,
             contentColor = MaterialTheme.colorScheme.onBackground,
             contentWindowInsets = WindowInsets(0, 0, 0, 0),
