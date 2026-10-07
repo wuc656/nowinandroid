@@ -87,6 +87,9 @@ android {
         resources {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
+        jniLibs {
+            useLegacyPackaging = false
+        }
     }
     testOptions.unitTests.isIncludeAndroidResources = true
     namespace = "com.wuc656.nowinandroid"
