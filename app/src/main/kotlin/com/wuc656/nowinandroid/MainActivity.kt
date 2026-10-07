@@ -39,6 +39,7 @@ import androidx.tracing.trace
 import com.wuc656.nowinandroid.MainActivityUiState.Loading
 import com.wuc656.nowinandroid.core.analytics.AnalyticsHelper
 import com.wuc656.nowinandroid.core.analytics.LocalAnalyticsHelper
+import com.wuc656.nowinandroid.core.analytics.NiaProfilingManager
 import com.wuc656.nowinandroid.core.data.repository.UserNewsResourceRepository
 import com.wuc656.nowinandroid.core.data.util.NetworkMonitor
 import com.wuc656.nowinandroid.core.data.util.TimeZoneMonitor
@@ -99,6 +100,9 @@ class MainActivity : ComponentActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             window.colorMode = android.content.pm.ActivityInfo.COLOR_MODE_HDR
         }
+
+        // Initialize Android 17 (API 37) ProfilingManager if available
+        NiaProfilingManager.registerListenerIfSupported(this)
 
         // We keep this as a mutable state, so that we can track changes inside the composition.
         // This allows us to react to dark/light mode changes.
