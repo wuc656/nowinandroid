@@ -29,7 +29,9 @@ internal class FirebaseSyncSubscriber @Inject constructor(
     private val firebaseMessaging: FirebaseMessaging,
 ) : SyncSubscriber {
     override suspend fun subscribe() {
-        firebaseMessaging.subscribeToTopic(NewsRepository.QUERY_NEWS).await()
-        firebaseMessaging.subscribeToTopic(TopicsRepository.QUERY_TOPICS).await()
+        runCatching {
+            firebaseMessaging.subscribeToTopic(NewsRepository.QUERY_NEWS).await()
+            firebaseMessaging.subscribeToTopic(TopicsRepository.QUERY_TOPICS).await()
+        }
     }
 }
