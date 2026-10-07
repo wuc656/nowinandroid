@@ -24,6 +24,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import com.wuc656.nowinandroid.core.designsystem.icon.NiaIcons
 import com.wuc656.nowinandroid.core.designsystem.theme.NiaTheme
 
@@ -53,7 +55,7 @@ fun NiaIconToggleButton(
     FilledIconToggleButton(
         checked = checked,
         onCheckedChange = onCheckedChange,
-        modifier = modifier,
+        modifier = modifier.pointerHoverIcon(PointerIcon.Hand),
         enabled = enabled,
         colors = IconButtonDefaults.iconToggleButtonColors(
             checkedContainerColor = MaterialTheme.colorScheme.primaryContainer,
