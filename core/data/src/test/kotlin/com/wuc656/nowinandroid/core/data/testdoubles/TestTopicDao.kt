@@ -38,7 +38,7 @@ class TestTopicDao : TopicDao {
     override fun getTopicEntities(ids: Set<String>): Flow<List<TopicEntity>> =
         getTopicEntities().map { topics -> topics.filter { it.id in ids } }
 
-    override suspend fun getOneOffTopicEntities(): List<TopicEntity> = emptyList()
+    override suspend fun getOneOffTopicEntities(): List<TopicEntity> = entitiesStateFlow.value
 
     override suspend fun insertOrIgnoreTopics(topicEntities: List<TopicEntity>): List<Long> {
         // Keep old values over new values

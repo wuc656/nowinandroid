@@ -28,6 +28,7 @@ import com.wuc656.nowinandroid.core.network.NiaNetworkDataSource
 import com.wuc656.nowinandroid.core.network.model.NetworkTopic
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
 /**
@@ -42,6 +43,14 @@ internal class OfflineFirstTopicsRepository @Inject constructor(
     override fun getTopics(): Flow<List<Topic>> =
         topicDao.getTopicEntities()
             .map { it.map(TopicEntity::asExternalModel) }
+            .onStart {
+                if (topicDao.getOneOffTopicEntities().isEmpty()) {
+                    val networkTopics = network.getTopics()
+                    if (networkTopics.isNotEmpty()) {
+                        topicDao.upsertTopics(networkTopics.map(NetworkTopic::asEntity))
+                    }
+                }
+            }
 
     override fun getTopic(id: String): Flow<Topic> =
         topicDao.getTopicEntity(id).map { it.asExternalModel() }

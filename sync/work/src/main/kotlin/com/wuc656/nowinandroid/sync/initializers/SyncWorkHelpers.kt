@@ -24,17 +24,15 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.work.Constraints
 import androidx.work.ForegroundInfo
-import androidx.work.NetworkType
 import com.wuc656.nowinandroid.sync.R
 
 const val SYNC_TOPIC = "sync"
 private const val SYNC_NOTIFICATION_ID = 0
 private const val SYNC_NOTIFICATION_CHANNEL_ID = "SyncNotificationChannel"
 
-// All sync work needs an internet connectionS
+// Sync work does not strictly require internet connection (supports offline assets)
 val SyncConstraints
     get() = Constraints.Builder()
-        .setRequiredNetworkType(NetworkType.CONNECTED)
         .build()
 
 /**

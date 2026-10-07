@@ -25,7 +25,6 @@ import androidx.work.ForegroundInfo
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkerParameters
-import java.util.concurrent.TimeUnit
 import com.wuc656.nowinandroid.core.analytics.AnalyticsHelper
 import com.wuc656.nowinandroid.core.common.network.Dispatcher
 import com.wuc656.nowinandroid.core.common.network.NiaDispatchers.IO
@@ -44,6 +43,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
+import java.util.concurrent.TimeUnit
 
 /**
  * Syncs the data layer by delegating to the appropriate repository instances with
