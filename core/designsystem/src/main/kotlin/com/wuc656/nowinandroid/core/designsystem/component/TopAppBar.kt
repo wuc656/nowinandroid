@@ -30,6 +30,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,7 +54,10 @@ fun NiaTopAppBar(
     CenterAlignedTopAppBar(
         title = { Text(text = stringResource(id = titleRes)) },
         navigationIcon = {
-            IconButton(onClick = onNavigationClick) {
+            IconButton(
+                onClick = onNavigationClick,
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+            ) {
                 Icon(
                     imageVector = navigationIcon,
                     contentDescription = navigationIconContentDescription,
@@ -61,7 +66,10 @@ fun NiaTopAppBar(
             }
         },
         actions = {
-            IconButton(onClick = onActionClick) {
+            IconButton(
+                onClick = onActionClick,
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+            ) {
                 Icon(
                     imageVector = actionIcon,
                     contentDescription = actionIconContentDescription,
