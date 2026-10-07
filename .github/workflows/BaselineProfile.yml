@@ -1,0 +1,69 @@
+name: Baseline Profile Auto-Generation
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * 1' # 每週一凌晨 2:00 自動執行
+
+concurrency:
+  group: baseline-profile-generation
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate_baseline_profile:
+    name: "Generate Baseline Profile on GMD"
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-provider: 'enhanced'
+
+      - name: Accept Android SDK Licenses & Setup KVM
+        run: |
+          echo "y" | sudo apt-get install -y cpu-checker qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
+          sudo kvm-ok
+
+      - name: Generate Baseline Profile
+        run: ./gradlew :app:generateBaselineProfile -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect" --project-prop "gradle.properties=.github/ci-gradle.properties"
+
+      - name: Check for Changes
+        id: git_status
+        run: |
+          git status -s
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Pull Request with Updated Baseline Profile
+        if: steps.git_status.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "perf: 定期自動更新 Android 16/17 Baseline Profile"
+          title: "🤖 [Automated] 定期更新 Baseline Profile"
+          body: |
+            此 PR 由 GitHub Actions 定期於 Gradle Managed Device (GMD) 產生之最新 Baseline Profile。
+            
+            - 最佳化 ART 編譯器啟動佈局與類別預載
+            - 提升 App 冷啟動速度與列表滾動流暢度
+          branch: automated-baseline-profile-update
+          base: main
+          delete-branch: true
