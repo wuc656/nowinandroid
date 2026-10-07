@@ -22,3 +22,7 @@ dependencies {
     api(libs.kotlinx.datetime)
     implementation(libs.kotlinx.coroutines.core)
 }
+
+kotlin {
+    explicitApiWarning()
+}
