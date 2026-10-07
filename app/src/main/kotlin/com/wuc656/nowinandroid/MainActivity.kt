@@ -95,6 +95,11 @@ class MainActivity : ComponentActivity() {
             window.attributes.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
         }
 
+        // Enable HDR wide-color gamut display mode on Android 14+ (API 34+) for UltraHDR visual fidelity
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            window.colorMode = android.content.pm.ActivityInfo.COLOR_MODE_HDR
+        }
+
         // We keep this as a mutable state, so that we can track changes inside the composition.
         // This allows us to react to dark/light mode changes.
         var themeSettings by mutableStateOf(

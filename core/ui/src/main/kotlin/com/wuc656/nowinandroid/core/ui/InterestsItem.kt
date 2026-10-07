@@ -29,6 +29,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
@@ -97,6 +99,7 @@ fun InterestsItem(
             .semantics(mergeDescendants = true) {
                 selected = isSelected
             }
+            .pointerHoverIcon(PointerIcon.Hand)
             .clickable(enabled = true, onClick = onClick),
     )
 }

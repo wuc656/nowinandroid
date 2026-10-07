@@ -54,6 +54,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draganddrop.DragAndDropTransferData
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.testTag
@@ -119,6 +121,7 @@ fun NewsResourceCardExpanded(
             .semantics {
                 onClick(label = clickActionLabel, action = null)
             }
+            .pointerHoverIcon(PointerIcon.Hand)
             .testTag("newsResourceCard:${userNewsResource.id}"),
     ) {
         Column {

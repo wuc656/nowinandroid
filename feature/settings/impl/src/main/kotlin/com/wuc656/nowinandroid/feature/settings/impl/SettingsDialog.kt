@@ -105,7 +105,7 @@ fun SettingsDialog(
      */
     AlertDialog(
         properties = DialogProperties(usePlatformDefaultWidth = false),
-        modifier = Modifier.widthIn(max = configuration.screenWidthDp.dp - 80.dp),
+        modifier = Modifier.widthIn(max = minOf(configuration.screenWidthDp.dp - 80.dp, 560.dp)),
         onDismissRequest = { onDismiss() },
         title = {
             Text(
