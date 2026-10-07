@@ -25,6 +25,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import com.wuc656.nowinandroid.core.designsystem.theme.NiaTheme
 
 @Composable
@@ -46,6 +48,7 @@ fun NiaTopicTag(
         TextButton(
             onClick = onClick,
             enabled = enabled,
+            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
             colors = ButtonDefaults.textButtonColors(
                 containerColor = containerColor,
                 contentColor = contentColorFor(backgroundColor = containerColor),
