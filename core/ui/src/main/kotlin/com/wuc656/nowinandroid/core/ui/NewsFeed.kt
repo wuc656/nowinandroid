@@ -17,6 +17,7 @@
 package com.wuc656.nowinandroid.core.ui
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import androidx.annotation.ColorInt
 import androidx.browser.customtabs.CustomTabColorSchemeParams
@@ -99,7 +100,16 @@ fun launchCustomChromeTab(context: Context, uri: Uri, @ColorInt toolbarColor: In
         .setDefaultColorSchemeParams(customTabBarColor)
         .build()
 
-    customTabsIntent.launchUrl(context, uri)
+    try {
+        customTabsIntent.launchUrl(context, uri)
+    } catch (e: android.content.ActivityNotFoundException) {
+        val fallbackIntent = Intent(Intent.ACTION_VIEW, uri).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        if (fallbackIntent.resolveActivity(context.packageManager) != null) {
+            context.startActivity(fallbackIntent)
+        }
+    }
 }
 
 /**
