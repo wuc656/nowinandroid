@@ -39,6 +39,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import com.wuc656.nowinandroid.core.designsystem.icon.NiaIcons
 import com.wuc656.nowinandroid.core.designsystem.theme.NiaTheme
@@ -260,7 +262,7 @@ class NiaNavigationSuiteScope internal constructor(
         },
         label = label,
         colors = navigationSuiteItemColors,
-        modifier = modifier,
+        modifier = modifier.pointerHoverIcon(PointerIcon.Hand),
     )
 }
 
