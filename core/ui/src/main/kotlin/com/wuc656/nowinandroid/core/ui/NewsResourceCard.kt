@@ -106,10 +106,10 @@ fun NewsResourceCardExpanded(
         userNewsResource.url,
     )
 
-    val dragAndDropFlags = if (VERSION.SDK_INT >= VERSION_CODES.N) {
-        View.DRAG_FLAG_GLOBAL
+    val dragAndDropFlags = if (NiaBuildCompat.isAtLeastAndroid15) {
+        View.DRAG_FLAG_GLOBAL or View.DRAG_FLAG_GLOBAL_URI_READ
     } else {
-        0
+        View.DRAG_FLAG_GLOBAL
     }
 
     Card(
