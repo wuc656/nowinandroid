@@ -34,6 +34,7 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
@@ -218,21 +219,26 @@ private fun BookmarksGrid(
 
 @Composable
 private fun EmptyState(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier
-            .padding(16.dp)
-            .fillMaxSize()
-            .testTag("bookmarks:empty"),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
     ) {
-        val iconTint = LocalTintTheme.current.iconTint
-        Image(
-            modifier = Modifier.fillMaxWidth(),
-            painter = painterResource(id = R.drawable.feature_bookmarks_api_mg_empty_bookmarks),
-            colorFilter = if (iconTint != Color.Unspecified) ColorFilter.tint(iconTint) else null,
-            contentDescription = null,
-        )
+        Column(
+            modifier = Modifier
+                .padding(16.dp)
+                .widthIn(max = 480.dp)
+                .fillMaxWidth()
+                .testTag("bookmarks:empty"),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            val iconTint = LocalTintTheme.current.iconTint
+            Image(
+                modifier = Modifier.fillMaxWidth(),
+                painter = painterResource(id = R.drawable.feature_bookmarks_api_mg_empty_bookmarks),
+                colorFilter = if (iconTint != Color.Unspecified) ColorFilter.tint(iconTint) else null,
+                contentDescription = null,
+            )
 
         Spacer(modifier = Modifier.height(48.dp))
 
@@ -253,6 +259,7 @@ private fun EmptyState(modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.bodyMedium,
         )
     }
+}
 }
 
 @Preview
