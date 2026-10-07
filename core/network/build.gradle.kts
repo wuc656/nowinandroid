@@ -54,7 +54,7 @@ val backendUrl = providers.fileContents(
     val properties = Properties()
     properties.load(StringReader(text))
     properties["BACKEND_URL"]
-}.orElse("https://nia-development.appspot.com")
+}.orElse("https://raw.githubusercontent.com/wuc656/nowinandroid/main/.backend/api/")
 
 androidComponents {
     onVariants {

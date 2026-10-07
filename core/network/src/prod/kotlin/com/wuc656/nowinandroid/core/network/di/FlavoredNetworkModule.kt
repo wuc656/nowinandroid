@@ -17,7 +17,7 @@
 package com.wuc656.nowinandroid.core.network.di
 
 import com.wuc656.nowinandroid.core.network.NiaNetworkDataSource
-import com.wuc656.nowinandroid.core.network.demo.DemoNiaNetworkDataSource
+import com.wuc656.nowinandroid.core.network.fallback.FallbackNiaNetworkDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -28,5 +28,5 @@ import dagger.hilt.components.SingletonComponent
 internal interface FlavoredNetworkModule {
 
     @Binds
-    fun binds(impl: DemoNiaNetworkDataSource): NiaNetworkDataSource
+    fun binds(impl: FallbackNiaNetworkDataSource): NiaNetworkDataSource
 }
