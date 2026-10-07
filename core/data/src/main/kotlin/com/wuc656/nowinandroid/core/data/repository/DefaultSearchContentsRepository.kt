@@ -87,6 +87,12 @@ internal class DefaultSearchContentsRepository @Inject constructor(
             newsResourceFtsDao.getCount(),
             topicFtsDao.getCount(),
         ) { newsResourceCount, topicsCount ->
-            newsResourceCount + topicsCount
+            val total = newsResourceCount + topicsCount
+            if (total == 0) {
+                // If FTS index is empty (e.g. initial install before background sync completes),
+                // trigger index population immediately from existing local database entities.
+                populateFtsData()
+            }
+            total
         }
 }

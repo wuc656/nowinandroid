@@ -50,6 +50,12 @@ class SearchViewModel @Inject constructor(
     private val analyticsHelper: AnalyticsHelper,
 ) : ViewModel() {
 
+    init {
+        viewModelScope.launch {
+            searchContentsRepository.populateFtsData()
+        }
+    }
+
     val searchQuery = savedStateHandle.getStateFlow(key = SEARCH_QUERY, initialValue = "")
 
     val searchResultUiState: StateFlow<SearchResultUiState> =
