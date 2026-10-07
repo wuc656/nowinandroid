@@ -97,13 +97,15 @@ internal class DefaultSearchContentsRepository @Inject constructor(
         val newsResourcesFlow = newsResourceIds
             .mapLatest { it.toSet() }
             .distinctUntilChanged()
-            .flatMapLatest {
-                newsResourceDao.getNewsResources(useFilterNewsIds = true, filterNewsIds = it)
+            .flatMapLatest { ids ->
+                if (ids.isEmpty()) kotlinx.coroutines.flow.flowOf(emptyList()) else newsResourceDao.getNewsResources(useFilterNewsIds = true, filterNewsIds = ids)
             }
         val topicsFlow = topicIds
             .mapLatest { it.toSet() }
             .distinctUntilChanged()
-            .flatMapLatest(topicDao::getTopicEntities)
+            .flatMapLatest { ids ->
+                if (ids.isEmpty()) kotlinx.coroutines.flow.flowOf(emptyList()) else topicDao.getTopicEntities(ids)
+            }
         return combine(newsResourcesFlow, topicsFlow) { newsResources, topics ->
             SearchResult(
                 topics = topics.map { it.asExternalModel() },
