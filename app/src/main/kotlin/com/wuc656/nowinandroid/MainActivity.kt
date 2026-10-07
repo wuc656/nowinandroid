@@ -45,6 +45,7 @@ import com.wuc656.nowinandroid.core.data.util.NetworkMonitor
 import com.wuc656.nowinandroid.core.data.util.TimeZoneMonitor
 import com.wuc656.nowinandroid.core.designsystem.theme.NiaTheme
 import com.wuc656.nowinandroid.core.ui.LocalTimeZone
+import com.wuc656.nowinandroid.core.ui.NiaBuildCompat
 import com.wuc656.nowinandroid.ui.NiaApp
 import com.wuc656.nowinandroid.ui.rememberNiaAppState
 import com.wuc656.nowinandroid.util.isSystemInDarkTheme
@@ -97,7 +98,7 @@ class MainActivity : ComponentActivity() {
         }
 
         // Enable HDR wide-color gamut display mode on Android 14+ (API 34+) for UltraHDR visual fidelity
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+        if (NiaBuildCompat.isAtLeastAndroid15 || Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             window.colorMode = android.content.pm.ActivityInfo.COLOR_MODE_HDR
         }
 
