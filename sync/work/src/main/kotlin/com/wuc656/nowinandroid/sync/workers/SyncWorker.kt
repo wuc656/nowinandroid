@@ -19,11 +19,13 @@ package com.wuc656.nowinandroid.sync.workers
 import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.tracing.traceAsync
+import androidx.work.BackoffPolicy
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkerParameters
+import java.util.concurrent.TimeUnit
 import com.wuc656.nowinandroid.core.analytics.AnalyticsHelper
 import com.wuc656.nowinandroid.core.common.network.Dispatcher
 import com.wuc656.nowinandroid.core.common.network.NiaDispatchers.IO
@@ -100,6 +102,11 @@ internal class SyncWorker @AssistedInject constructor(
         fun startUpSyncWork() = OneTimeWorkRequestBuilder<DelegatingWorker>()
             .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
             .setConstraints(SyncConstraints)
+            .setBackoffCriteria(
+                BackoffPolicy.EXPONENTIAL,
+                10,
+                TimeUnit.SECONDS,
+            )
             .setInputData(SyncWorker::class.delegatedData())
             .build()
     }
