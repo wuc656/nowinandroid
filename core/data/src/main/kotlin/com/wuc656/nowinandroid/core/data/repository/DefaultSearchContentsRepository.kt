@@ -18,6 +18,9 @@ package com.wuc656.nowinandroid.core.data.repository
 
 import com.wuc656.nowinandroid.core.common.network.Dispatcher
 import com.wuc656.nowinandroid.core.common.network.NiaDispatchers.IO
+import com.wuc656.nowinandroid.core.data.model.asEntity
+import com.wuc656.nowinandroid.core.data.model.topicCrossReferences
+import com.wuc656.nowinandroid.core.data.model.topicEntityShells
 import com.wuc656.nowinandroid.core.database.dao.NewsResourceDao
 import com.wuc656.nowinandroid.core.database.dao.NewsResourceFtsDao
 import com.wuc656.nowinandroid.core.database.dao.TopicDao
@@ -26,6 +29,7 @@ import com.wuc656.nowinandroid.core.database.model.PopulatedNewsResource
 import com.wuc656.nowinandroid.core.database.model.asExternalModel
 import com.wuc656.nowinandroid.core.database.model.asFtsEntity
 import com.wuc656.nowinandroid.core.model.data.SearchResult
+import com.wuc656.nowinandroid.core.network.NiaNetworkDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -37,6 +41,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 internal class DefaultSearchContentsRepository @Inject constructor(
+    private val network: NiaNetworkDataSource,
     private val newsResourceDao: NewsResourceDao,
     private val newsResourceFtsDao: NewsResourceFtsDao,
     private val topicDao: TopicDao,
@@ -46,15 +51,40 @@ internal class DefaultSearchContentsRepository @Inject constructor(
 
     override suspend fun populateFtsData() {
         withContext(ioDispatcher) {
+            var localTopics = topicDao.getOneOffTopicEntities()
+            if (localTopics.isEmpty()) {
+                val networkTopics = network.getTopics()
+                if (networkTopics.isNotEmpty()) {
+                    topicDao.upsertTopics(networkTopics.map { it.asEntity() })
+                    localTopics = topicDao.getOneOffTopicEntities()
+                }
+            }
+
+            var localNews = newsResourceDao.getNewsResources(
+                useFilterTopicIds = false,
+                useFilterNewsIds = false,
+            ).first()
+            if (localNews.isEmpty()) {
+                val networkNews = network.getNewsResources()
+                if (networkNews.isNotEmpty()) {
+                    topicDao.insertOrIgnoreTopics(
+                        topicEntities = networkNews.flatMap { it.topicEntityShells() },
+                    )
+                    newsResourceDao.upsertNewsResourcesWithTopics(
+                        newsResourceEntities = networkNews.map { it.asEntity() },
+                        newsResourceTopicCrossReferences = networkNews.flatMap { it.topicCrossReferences() },
+                    )
+                    localNews = newsResourceDao.getNewsResources(
+                        useFilterTopicIds = false,
+                        useFilterNewsIds = false,
+                    ).first()
+                }
+            }
+
             newsResourceFtsDao.insertAll(
-                newsResourceDao.getNewsResources(
-                    useFilterTopicIds = false,
-                    useFilterNewsIds = false,
-                )
-                    .first()
-                    .map(PopulatedNewsResource::asFtsEntity),
+                localNews.map(PopulatedNewsResource::asFtsEntity),
             )
-            topicFtsDao.insertAll(topicDao.getOneOffTopicEntities().map { it.asFtsEntity() })
+            topicFtsDao.insertAll(localTopics.map { it.asFtsEntity() })
         }
     }
 
