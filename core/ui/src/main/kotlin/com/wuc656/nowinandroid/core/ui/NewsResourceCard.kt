@@ -17,8 +17,6 @@
 package com.wuc656.nowinandroid.core.ui
 
 import android.content.ClipData
-import android.os.Build.VERSION
-import android.os.Build.VERSION_CODES
 import android.view.View
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi

@@ -53,10 +53,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.isCtrlPressed
 import androidx.compose.ui.input.key.key
@@ -72,7 +72,6 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import com.wuc656.nowinandroid.R
 import com.wuc656.nowinandroid.core.designsystem.component.NiaBackground
-import com.wuc656.nowinandroid.core.designsystem.component.NiaGradientBackground
 import com.wuc656.nowinandroid.core.designsystem.component.NiaMeshGradientBackground
 import com.wuc656.nowinandroid.core.designsystem.component.NiaNavigationSuiteScaffold
 import com.wuc656.nowinandroid.core.designsystem.component.NiaTopAppBar
