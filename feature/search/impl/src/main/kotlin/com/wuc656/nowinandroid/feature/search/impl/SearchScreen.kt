@@ -18,6 +18,7 @@ package com.wuc656.nowinandroid.feature.search.impl
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,18 +43,21 @@ import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.TextFieldLineLimits
+import androidx.compose.foundation.text.input.rememberTextFieldState
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -72,6 +76,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withLink
@@ -488,6 +493,7 @@ private fun SearchToolbar(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun SearchTextField(
     searchQuery: String,
@@ -497,53 +503,39 @@ private fun SearchTextField(
     val focusRequester = remember { FocusRequester() }
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    val onSearchExplicitlyTriggered = {
-        keyboardController?.hide()
-        onSearchTriggered(searchQuery)
+    val textFieldState = rememberTextFieldState(initialText = searchQuery)
+
+    LaunchedEffect(searchQuery) {
+        if (textFieldState.text.toString() != searchQuery) {
+            textFieldState.edit {
+                replace(0, length, searchQuery)
+            }
+        }
     }
 
-    TextField(
-        colors = TextFieldDefaults.colors(
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent,
-        ),
-        leadingIcon = {
-            Icon(
-                imageVector = NiaIcons.Search,
-                contentDescription = stringResource(
-                    id = searchR.string.feature_search_api_title,
-                ),
-                tint = MaterialTheme.colorScheme.onSurface,
-            )
-        },
-        trailingIcon = {
-            if (searchQuery.isNotEmpty()) {
-                IconButton(
-                    onClick = {
-                        onSearchQueryChanged("")
-                    },
-                ) {
-                    Icon(
-                        imageVector = NiaIcons.Close,
-                        contentDescription = stringResource(
-                            id = searchR.string.feature_search_api_clear_search_text_content_desc,
-                        ),
-                        tint = MaterialTheme.colorScheme.onSurface,
-                    )
+    LaunchedEffect(textFieldState) {
+        snapshotFlow { textFieldState.text.toString() }
+            .collect { newText ->
+                if (newText != searchQuery) {
+                    onSearchQueryChanged(newText)
                 }
             }
-        },
-        onValueChange = {
-            if ("\n" !in it) onSearchQueryChanged(it)
-        },
+    }
+
+    val onSearchExplicitlyTriggered = {
+        keyboardController?.hide()
+        onSearchTriggered(textFieldState.text.toString())
+    }
+
+    BasicTextField(
+        state = textFieldState,
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
             .focusRequester(focusRequester)
             .onKeyEvent {
                 if (it.key == Key.Enter) {
-                    if (searchQuery.isBlank()) return@onKeyEvent false
+                    if (textFieldState.text.isBlank()) return@onKeyEvent false
                     onSearchExplicitlyTriggered()
                     true
                 } else {
@@ -551,19 +543,78 @@ private fun SearchTextField(
                 }
             }
             .testTag("searchTextField"),
-        shape = RoundedCornerShape(32.dp),
-        value = searchQuery,
+        textStyle = MaterialTheme.typography.bodyLarge.copy(
+            color = MaterialTheme.colorScheme.onSurface,
+        ),
         keyboardOptions = KeyboardOptions(
             imeAction = ImeAction.Search,
         ),
-        keyboardActions = KeyboardActions(
-            onSearch = {
-                if (searchQuery.isBlank()) return@KeyboardActions
+        onKeyboardAction = {
+            if (textFieldState.text.isNotBlank()) {
                 onSearchExplicitlyTriggered()
-            },
-        ),
-        maxLines = 1,
-        singleLine = true,
+            }
+        },
+        lineLimits = TextFieldLineLimits.SingleLine,
+        decorator = { innerTextField ->
+            TextFieldDefaults.DecorationBox(
+                value = textFieldState.text.toString(),
+                innerTextField = innerTextField,
+                enabled = true,
+                singleLine = true,
+                visualTransformation = VisualTransformation.None,
+                interactionSource = remember { MutableInteractionSource() },
+                placeholder = null,
+                leadingIcon = {
+                    Icon(
+                        imageVector = NiaIcons.Search,
+                        contentDescription = stringResource(
+                            id = searchR.string.feature_search_api_title,
+                        ),
+                        tint = MaterialTheme.colorScheme.onSurface,
+                    )
+                },
+                trailingIcon = {
+                    if (textFieldState.text.isNotEmpty()) {
+                        IconButton(
+                            onClick = {
+                                textFieldState.edit {
+                                    replace(0, length, "")
+                                }
+                                onSearchQueryChanged("")
+                            },
+                        ) {
+                            Icon(
+                                imageVector = NiaIcons.Close,
+                                contentDescription = stringResource(
+                                    id = searchR.string.feature_search_api_clear_search_text_content_desc,
+                                ),
+                                tint = MaterialTheme.colorScheme.onSurface,
+                            )
+                        }
+                    }
+                },
+                colors = TextFieldDefaults.colors(
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent,
+                ),
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+                shape = RoundedCornerShape(32.dp),
+                container = {
+                    TextFieldDefaults.Container(
+                        enabled = true,
+                        isError = false,
+                        interactionSource = remember { MutableInteractionSource() },
+                        colors = TextFieldDefaults.colors(
+                            focusedIndicatorColor = Color.Transparent,
+                            unfocusedIndicatorColor = Color.Transparent,
+                            disabledIndicatorColor = Color.Transparent,
+                        ),
+                        shape = RoundedCornerShape(32.dp),
+                    )
+                },
+            )
+        },
     )
     LaunchedEffect(Unit) {
         focusRequester.requestFocus()

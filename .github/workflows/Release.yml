@@ -9,7 +9,7 @@ on:
         type: boolean
         default: true
       release_tag:
-        description: 'Release 標籤名稱 (若為空將使用 App 當前版本號，例如 v1.0.9)'
+        description: 'Release 標籤名稱 (若為空將使用 App 當前版本號，例如 v1.0.10)'
         required: false
         type: string
         default: ''
