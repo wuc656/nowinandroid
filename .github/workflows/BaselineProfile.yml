@@ -16,7 +16,7 @@ permissions:
 jobs:
   generate_baseline_profile:
     name: "Generate Baseline Profile on GMD"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 60
 
     steps:

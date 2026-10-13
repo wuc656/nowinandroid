@@ -41,6 +41,7 @@ firebaseCrashlyticsPlugin = "3.0.6"
 firebasePerfPlugin = "2.0.2"
 gmsPlugin = "4.4.4"
 googleOss = "17.1.0"
+guava = "33.5.0-android"
 googleOssPlugin = "0.12.0"
 googlePlayAppUpdate = "2.1.0"
 googlePlayReview = "2.0.2"
@@ -137,6 +138,7 @@ firebase-cloud-messaging = { group = "com.google.firebase", name = "firebase-mes
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 firebase-performance = { group = "com.google.firebase", name = "firebase-perf" }
 google-oss-licenses = { group = "com.google.android.gms", name = "play-services-oss-licenses", version.ref = "googleOss" }
+guava = { group = "com.google.guava", name = "guava", version.ref = "guava" }
 google-play-app-update = { group = "com.google.android.play", name = "app-update", version.ref = "googlePlayAppUpdate" }
 google-play-app-update-ktx = { group = "com.google.android.play", name = "app-update-ktx", version.ref = "googlePlayAppUpdate" }
 google-play-review = { group = "com.google.android.play", name = "review", version.ref = "googlePlayReview" }

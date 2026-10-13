@@ -133,6 +133,11 @@ dependencies {
     implementation(projects.core.analytics)
     implementation(projects.sync.work)
 
+    constraints {
+        // firebase-analytics pulls guava 31.1-android (CVE-2023-2976, CVE-2020-8908).
+        implementation(libs.guava) { because("security: guava < 32.0.0 has known CVEs") }
+    }
+
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.navigation3.ui)
