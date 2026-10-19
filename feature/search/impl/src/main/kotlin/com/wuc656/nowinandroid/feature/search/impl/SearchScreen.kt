@@ -46,6 +46,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.TextFieldLineLimits
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -133,6 +134,7 @@ internal fun SearchScreen(
     SearchScreen(
         modifier = modifier,
         searchQuery = searchQuery,
+        searchTextFieldState = searchViewModel.searchTextFieldState,
         recentSearchesUiState = recentSearchQueriesUiState,
         searchResultUiState = searchResultUiState,
         onSearchQueryChanged = searchViewModel::onSearchQueryChanged,
@@ -151,6 +153,7 @@ internal fun SearchScreen(
 internal fun SearchScreen(
     modifier: Modifier = Modifier,
     searchQuery: String = "",
+    searchTextFieldState: TextFieldState? = null,
     recentSearchesUiState: RecentSearchQueriesUiState = RecentSearchQueriesUiState.Loading,
     searchResultUiState: SearchResultUiState = SearchResultUiState.Loading,
     onSearchQueryChanged: (String) -> Unit = {},
@@ -171,6 +174,7 @@ internal fun SearchScreen(
             onSearchQueryChanged = onSearchQueryChanged,
             onSearchTriggered = onSearchTriggered,
             searchQuery = searchQuery,
+            searchTextFieldState = searchTextFieldState,
         )
         when (searchResultUiState) {
             SearchResultUiState.Loading,
@@ -470,6 +474,7 @@ private fun SearchToolbar(
     onSearchTriggered: (String) -> Unit,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
+    searchTextFieldState: TextFieldState? = null,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -489,6 +494,7 @@ private fun SearchToolbar(
             onSearchQueryChanged = onSearchQueryChanged,
             onSearchTriggered = onSearchTriggered,
             searchQuery = searchQuery,
+            searchTextFieldState = searchTextFieldState,
         )
     }
 }
@@ -499,27 +505,30 @@ private fun SearchTextField(
     searchQuery: String,
     onSearchQueryChanged: (String) -> Unit,
     onSearchTriggered: (String) -> Unit,
+    searchTextFieldState: TextFieldState? = null,
 ) {
     val focusRequester = remember { FocusRequester() }
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    val textFieldState = rememberTextFieldState(initialText = searchQuery)
+    val textFieldState = searchTextFieldState ?: rememberTextFieldState(initialText = searchQuery)
 
-    LaunchedEffect(searchQuery) {
-        if (textFieldState.text.toString() != searchQuery) {
-            textFieldState.edit {
-                replace(0, length, searchQuery)
-            }
-        }
-    }
-
-    LaunchedEffect(textFieldState) {
-        snapshotFlow { textFieldState.text.toString() }
-            .collect { newText ->
-                if (newText != searchQuery) {
-                    onSearchQueryChanged(newText)
+    if (searchTextFieldState == null) {
+        LaunchedEffect(searchQuery) {
+            if (textFieldState.text.toString() != searchQuery) {
+                textFieldState.edit {
+                    replace(0, length, searchQuery)
                 }
             }
+        }
+
+        LaunchedEffect(textFieldState) {
+            snapshotFlow { textFieldState.text.toString() }
+                .collect { newText ->
+                    if (newText != searchQuery) {
+                        onSearchQueryChanged(newText)
+                    }
+                }
+        }
     }
 
     val onSearchExplicitlyTriggered = {

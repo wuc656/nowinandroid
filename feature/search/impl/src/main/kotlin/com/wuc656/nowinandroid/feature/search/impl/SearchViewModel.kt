@@ -16,6 +16,8 @@
 
 package com.wuc656.nowinandroid.feature.search.impl
 
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -50,13 +52,23 @@ class SearchViewModel @Inject constructor(
     private val analyticsHelper: AnalyticsHelper,
 ) : ViewModel() {
 
+    val searchQuery = savedStateHandle.getStateFlow(key = SEARCH_QUERY, initialValue = "")
+
+    val searchTextFieldState = TextFieldState(initialText = searchQuery.value)
+
     init {
         viewModelScope.launch {
             searchContentsRepository.populateFtsData()
         }
+        viewModelScope.launch {
+            snapshotFlow { searchTextFieldState.text.toString() }
+                .collect { query ->
+                    if (savedStateHandle.get<String>(SEARCH_QUERY) != query) {
+                        savedStateHandle[SEARCH_QUERY] = query
+                    }
+                }
+        }
     }
-
-    val searchQuery = savedStateHandle.getStateFlow(key = SEARCH_QUERY, initialValue = "")
 
     val searchResultUiState: StateFlow<SearchResultUiState> =
         searchContentsRepository.getSearchContentsCount()
@@ -98,6 +110,11 @@ class SearchViewModel @Inject constructor(
 
     fun onSearchQueryChanged(query: String) {
         savedStateHandle[SEARCH_QUERY] = query
+        if (searchTextFieldState.text.toString() != query) {
+            searchTextFieldState.edit {
+                replace(0, length, query)
+            }
+        }
     }
 
     /**

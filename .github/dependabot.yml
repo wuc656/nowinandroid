@@ -11,13 +11,32 @@ updates:
     labels:
       - "dependencies"
     groups:
-      # Group minor and patch updates to reduce PR noise
-      gradle-dependencies:
+      androidx:
         patterns:
-          - "*"
+          - "androidx.*"
         update-types:
           - "minor"
           - "patch"
+      kotlin-and-ksp:
+        patterns:
+          - "org.jetbrains.kotlin*"
+          - "org.jetbrains.kotlinx*"
+          - "com.google.devtools.ksp*"
+        update-types:
+          - "minor"
+          - "patch"
+      google-and-play:
+        patterns:
+          - "com.google.*"
+        exclude-patterns:
+          - "com.google.devtools.ksp*"
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      # okhttp 5.5.0+ requires compileSdk 37
+      - dependency-name: "com.squareup.okhttp3:*"
+        versions: [">= 5.5.0"]
 
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: "github-actions"

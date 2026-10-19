@@ -16,10 +16,14 @@
 
 package com.wuc656.nowinandroid.feature.foryou.impl
 
+import android.app.Activity
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import androidx.activity.compose.ReportDrawnWhen
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -80,11 +84,10 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.PermissionStatus.Denied
-import com.google.accompanist.permissions.rememberPermissionState
 import com.wuc656.nowinandroid.core.designsystem.component.DynamicAsyncImage
 import com.wuc656.nowinandroid.core.designsystem.component.NiaButton
 import com.wuc656.nowinandroid.core.designsystem.component.NiaIconToggleButton
@@ -464,19 +467,27 @@ fun TopicIcon(
 }
 
 @Composable
-@OptIn(ExperimentalPermissionsApi::class)
 private fun NotificationPermissionEffect() {
     // Permission requests should only be made from an Activity Context, which is not present
     // in previews
     if (LocalInspectionMode.current) return
     if (VERSION.SDK_INT < VERSION_CODES.TIRAMISU) return
-    val notificationsPermissionState = rememberPermissionState(
-        android.Manifest.permission.POST_NOTIFICATIONS,
+    val context = LocalContext.current
+    val permission = android.Manifest.permission.POST_NOTIFICATIONS
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = {},
     )
-    LaunchedEffect(notificationsPermissionState) {
-        val status = notificationsPermissionState.status
-        if (status is Denied && !status.shouldShowRationale) {
-            notificationsPermissionState.launchPermissionRequest()
+    LaunchedEffect(Unit) {
+        val isGranted = ContextCompat.checkSelfPermission(
+            context,
+            permission,
+        ) == PackageManager.PERMISSION_GRANTED
+        val shouldShowRationale = (context as? Activity)?.let {
+            ActivityCompat.shouldShowRequestPermissionRationale(it, permission)
+        } ?: false
+        if (!isGranted && !shouldShowRationale) {
+            launcher.launch(permission)
         }
     }
 }
