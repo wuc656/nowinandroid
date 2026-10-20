@@ -34,4 +34,16 @@
     <string name="feature_settings_impl_dynamic_color_yes">Yes</string>
     <string name="feature_settings_impl_dynamic_color_no">No</string>
     <string name="feature_settings_impl_dismiss_dialog_button_text">OK</string>
+    <string name="feature_settings_impl_about">About</string>
+    <string name="feature_settings_impl_about_title">About Author &amp; Project</string>
+    <string name="feature_settings_impl_about_author_section">Author</string>
+    <string name="feature_settings_impl_about_author_name">Yen-Tung Wu (吳彥東 / dongdong / wuc656)</string>
+    <string name="feature_settings_impl_about_author_bio">Software developer from Taiwan focusing on Go (Golang), Vue 3, modern Android development, and systems architecture. Creator of open-source utilities and maintainer of technical communities.</string>
+    <string name="feature_settings_impl_about_project_section">Project: Now in Android (wuc656 edition)</string>
+    <string name="feature_settings_impl_about_project_desc">A fully functional Android app built entirely with Kotlin and Jetpack Compose. Demonstrates modern Android architecture recommendations: Unidirectional Data Flow, Navigation 3, Hilt, Room, WorkManager, Coroutines/Flow, Material 3, and offline-first reactive design.</string>
+    <string name="feature_settings_impl_about_github_author">GitHub (@wuc656)</string>
+    <string name="feature_settings_impl_about_github_repo">Project GitHub Repo</string>
+    <string name="feature_settings_impl_about_website">Personal Website (wuc656.com)</string>
+    <string name="feature_settings_impl_about_play_store">Google Play (NIA wuc656)</string>
+    <string name="feature_settings_impl_about_close">Close</string>
 </resources>

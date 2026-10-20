@@ -29,6 +29,7 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
@@ -44,7 +45,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -100,6 +103,11 @@ fun SettingsDialog(
     onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit,
 ) {
     val configuration = LocalConfiguration.current
+    var showAboutDialog by rememberSaveable { mutableStateOf(false) }
+
+    if (showAboutDialog) {
+        AboutDialog(onDismiss = { showAboutDialog = false })
+    }
 
     /**
      * usePlatformDefaultWidth = false is use as a temporary fix to allow
@@ -160,7 +168,7 @@ fun SettingsDialog(
                     }
                 }
                 HorizontalDivider(Modifier.padding(top = 8.dp))
-                LinksPanel()
+                LinksPanel(onAboutClick = { showAboutDialog = true })
             }
             TrackScreenViewEvent(screenName = "Settings")
         },
@@ -275,7 +283,9 @@ fun SettingsDialogThemeChooserRow(
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun LinksPanel() {
+private fun LinksPanel(
+    onAboutClick: () -> Unit,
+) {
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(
             space = 16.dp,
@@ -284,6 +294,9 @@ private fun LinksPanel() {
         modifier = Modifier.fillMaxWidth(),
     ) {
         val uriHandler = LocalUriHandler.current
+        NiaTextButton(onClick = onAboutClick) {
+            Text(text = stringResource(string.feature_settings_impl_about))
+        }
         NiaTextButton(
             onClick = { uriHandler.openUri(PRIVACY_POLICY_URL) },
         ) {
@@ -310,6 +323,107 @@ private fun LinksPanel() {
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun AboutDialog(
+    onDismiss: () -> Unit,
+) {
+    val configuration = LocalConfiguration.current
+    val uriHandler = LocalUriHandler.current
+
+    AlertDialog(
+        properties = DialogProperties(usePlatformDefaultWidth = false),
+        modifier = Modifier
+            .widthIn(max = minOf(configuration.screenWidthDp.dp - 60.dp, 580.dp)),
+        onDismissRequest = onDismiss,
+        title = {
+            Text(
+                text = stringResource(string.feature_settings_impl_about_title),
+                style = MaterialTheme.typography.titleLarge,
+            )
+        },
+        text = {
+            HorizontalDivider()
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .padding(vertical = 8.dp),
+            ) {
+                Text(
+                    text = stringResource(string.feature_settings_impl_about_author_section),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                )
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    text = stringResource(string.feature_settings_impl_about_author_name),
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    text = stringResource(string.feature_settings_impl_about_author_bio),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+
+                Spacer(Modifier.height(16.dp))
+                HorizontalDivider()
+                Spacer(Modifier.height(12.dp))
+
+                Text(
+                    text = stringResource(string.feature_settings_impl_about_project_section),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                )
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    text = stringResource(string.feature_settings_impl_about_project_desc),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+
+                Spacer(Modifier.height(16.dp))
+                HorizontalDivider()
+                Spacer(Modifier.height(8.dp))
+
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(
+                        space = 8.dp,
+                        alignment = Alignment.Start,
+                    ),
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    NiaTextButton(onClick = { uriHandler.openUri(AUTHOR_GITHUB_URL) }) {
+                        Text(text = stringResource(string.feature_settings_impl_about_github_author))
+                    }
+                    NiaTextButton(onClick = { uriHandler.openUri(PROJECT_GITHUB_URL) }) {
+                        Text(text = stringResource(string.feature_settings_impl_about_github_repo))
+                    }
+                    NiaTextButton(onClick = { uriHandler.openUri(AUTHOR_WEBSITE_URL) }) {
+                        Text(text = stringResource(string.feature_settings_impl_about_website))
+                    }
+                    NiaTextButton(onClick = { uriHandler.openUri(PLAY_STORE_URL) }) {
+                        Text(text = stringResource(string.feature_settings_impl_about_play_store))
+                    }
+                }
+            }
+            TrackScreenViewEvent(screenName = "About")
+        },
+        confirmButton = {
+            NiaTextButton(
+                onClick = onDismiss,
+                modifier = Modifier.padding(horizontal = 8.dp),
+            ) {
+                Text(
+                    text = stringResource(string.feature_settings_impl_about_close),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.primary,
+                )
+            }
+        },
+    )
+}
+
 @Preview
 @Composable
 private fun PreviewSettingsDialog() {
@@ -332,6 +446,14 @@ private fun PreviewSettingsDialog() {
 
 @Preview
 @Composable
+private fun PreviewAboutDialog() {
+    NiaTheme {
+        AboutDialog(onDismiss = {})
+    }
+}
+
+@Preview
+@Composable
 private fun PreviewSettingsDialogLoading() {
     NiaTheme {
         SettingsDialog(
@@ -347,3 +469,7 @@ private fun PreviewSettingsDialogLoading() {
 private const val PRIVACY_POLICY_URL = "https://policies.google.com/privacy"
 private const val BRAND_GUIDELINES_URL = "https://developer.android.com/distribute/marketing-tools/brand-guidelines"
 private const val FEEDBACK_URL = "https://goo.gle/nia-app-feedback"
+private const val AUTHOR_GITHUB_URL = "https://github.com/wuc656"
+private const val PROJECT_GITHUB_URL = "https://github.com/wuc656/nowinandroid"
+private const val AUTHOR_WEBSITE_URL = "https://wuc656.com"
+private const val PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.wuc656.nowinandroid"

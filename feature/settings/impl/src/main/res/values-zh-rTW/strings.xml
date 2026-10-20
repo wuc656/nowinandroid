@@ -34,4 +34,16 @@
     <string name="feature_settings_impl_dynamic_color_yes">是</string>
     <string name="feature_settings_impl_dynamic_color_no">否</string>
     <string name="feature_settings_impl_dismiss_dialog_button_text">確定</string>
+    <string name="feature_settings_impl_about">關於作者與專案</string>
+    <string name="feature_settings_impl_about_title">關於作者與專案</string>
+    <string name="feature_settings_impl_about_author_section">作者介紹</string>
+    <string name="feature_settings_impl_about_author_name">吳彥東 (東東 / wuc656)</string>
+    <string name="feature_settings_impl_about_author_bio">來自台灣的軟體工程師，專注於 Go (Golang)、Vue 3、現代 Android 開發與系統架構設計。致力於開源工具套件開發與技術社群維護。</string>
+    <string name="feature_settings_impl_about_project_section">專案介紹：Now in Android (wuc656 版)</string>
+    <string name="feature_settings_impl_about_project_desc">基於 Google 官方 Now in Android 開源示範專案進行現代化維護與實踐。完整採用純 Jetpack Compose、單向資料流 (UDF)、Navigation 3、Hilt、Room、WorkManager、Coroutines/Flow、Material 3 與離線優先架構。</string>
+    <string name="feature_settings_impl_about_github_author">GitHub 個人主頁 (@wuc656)</string>
+    <string name="feature_settings_impl_about_github_repo">專案 GitHub 倉庫</string>
+    <string name="feature_settings_impl_about_website">個人網站 (wuc656.com)</string>
+    <string name="feature_settings_impl_about_play_store">Google Play 商店 (NIA wuc656)</string>
+    <string name="feature_settings_impl_about_close">關閉</string>
 </resources>
