@@ -94,9 +94,7 @@ android {
     testOptions.unitTests.isIncludeAndroidResources = true
     namespace = "com.wuc656.nowinandroid"
     compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
+        version = release(37)
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

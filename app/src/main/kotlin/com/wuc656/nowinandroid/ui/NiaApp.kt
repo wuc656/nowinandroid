@@ -147,8 +147,6 @@ fun NiaApp(
             CompositionLocalProvider(LocalSnackbarHostState provides snackbarHostState) {
                 NiaApp(
                     appState = appState,
-
-                    // TODO: Settings should be a dialog screen
                     showSettingsDialog = showSettingsDialog,
                     onSettingsDismissed = { showSettingsDialog = false },
                     onTopAppBarActionClick = { showSettingsDialog = true },
@@ -334,9 +332,6 @@ internal fun NiaApp(
                         onBack = { navigator.goBack() },
                     )
                 }
-
-                // TODO: We may want to add padding or spacer when the snackbar is shown so that
-                //  content doesn't display behind it.
             }
         }
     }

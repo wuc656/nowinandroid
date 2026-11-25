@@ -42,7 +42,6 @@ class AndroidLintConventionPlugin : Plugin<Project> {
 }
 
 private fun Lint.configure() {
-    sarifReport = true
     checkDependencies = true
     disable += "GradleDependency"
     checkReleaseBuilds = false

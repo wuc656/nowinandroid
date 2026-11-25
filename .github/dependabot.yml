@@ -33,10 +33,6 @@ updates:
         update-types:
           - "minor"
           - "patch"
-    ignore:
-      # okhttp 5.5.0+ requires compileSdk 37
-      - dependency-name: "com.squareup.okhttp3:*"
-        versions: [">= 5.5.0"]
 
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: "github-actions"
