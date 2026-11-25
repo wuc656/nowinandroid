@@ -35,6 +35,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.metrics.performance.JankStats
+import androidx.navigation3.runtime.deeplink.DeepLinkRequest
+import androidx.navigation3.runtime.deeplink.DeepLinkUri
+import androidx.navigation3.runtime.deeplink.UriDeepLinkMatcher
 import androidx.tracing.trace
 import com.wuc656.nowinandroid.MainActivityUiState.Loading
 import com.wuc656.nowinandroid.core.analytics.AnalyticsHelper
@@ -44,8 +47,10 @@ import com.wuc656.nowinandroid.core.data.repository.UserNewsResourceRepository
 import com.wuc656.nowinandroid.core.data.util.NetworkMonitor
 import com.wuc656.nowinandroid.core.data.util.TimeZoneMonitor
 import com.wuc656.nowinandroid.core.designsystem.theme.NiaTheme
+import com.wuc656.nowinandroid.core.notifications.DEEP_LINK_URI_PATTERN
 import com.wuc656.nowinandroid.core.ui.LocalTimeZone
 import com.wuc656.nowinandroid.core.ui.NiaBuildCompat
+import com.wuc656.nowinandroid.feature.foryou.api.navigation.ForYouNavKey
 import com.wuc656.nowinandroid.ui.NiaApp
 import com.wuc656.nowinandroid.ui.rememberNiaAppState
 import com.wuc656.nowinandroid.util.isSystemInDarkTheme
@@ -56,6 +61,11 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+private val forYouDeepLinkMatcher = UriDeepLinkMatcher(
+    uriPattern = DeepLinkUri(DEEP_LINK_URI_PATTERN),
+    serializer = ForYouNavKey.serializer(),
+)
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -167,11 +177,20 @@ class MainActivity : ComponentActivity() {
             )
         }
 
+        val deepLinkKey = if (savedInstanceState == null) {
+            intent.data?.let { uri ->
+                forYouDeepLinkMatcher.match(DeepLinkRequest(uri.toString()))?.key
+            }
+        } else {
+            null
+        }
+
         setContent {
             val appState = rememberNiaAppState(
                 networkMonitor = networkMonitor,
                 userNewsResourceRepository = userNewsResourceRepository,
                 timeZoneMonitor = timeZoneMonitor,
+                deepLinkKey = deepLinkKey,
             )
 
             val currentTimeZone by appState.currentTimeZone.collectAsStateWithLifecycle()

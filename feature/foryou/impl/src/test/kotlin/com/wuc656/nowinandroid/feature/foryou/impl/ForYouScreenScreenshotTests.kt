@@ -83,8 +83,6 @@ class ForYouScreenScreenshotTests {
                     onNewsResourcesCheckedChanged = { _, _ -> },
                     onNewsResourceViewed = {},
                     onTopicClick = {},
-                    deepLinkedUserNewsResource = null,
-                    onDeepLinkOpened = {},
                 )
             }
         }
@@ -103,8 +101,6 @@ class ForYouScreenScreenshotTests {
                     onNewsResourcesCheckedChanged = { _, _ -> },
                     onNewsResourceViewed = {},
                     onTopicClick = {},
-                    deepLinkedUserNewsResource = null,
-                    onDeepLinkOpened = {},
                 )
             }
         }
@@ -179,8 +175,6 @@ class ForYouScreenScreenshotTests {
                     onNewsResourcesCheckedChanged = { _, _ -> },
                     onNewsResourceViewed = {},
                     onTopicClick = {},
-                    deepLinkedUserNewsResource = null,
-                    onDeepLinkOpened = {},
                 )
             }
         }
@@ -201,8 +195,6 @@ class ForYouScreenScreenshotTests {
                     onNewsResourcesCheckedChanged = { _, _ -> },
                     onNewsResourceViewed = {},
                     onTopicClick = {},
-                    deepLinkedUserNewsResource = null,
-                    onDeepLinkOpened = {},
                 )
             }
         }

@@ -129,6 +129,7 @@ dependencies {
     implementation(projects.core.data)
     implementation(projects.core.model)
     implementation(projects.core.analytics)
+    implementation(projects.core.notifications)
     implementation(projects.sync.work)
 
     constraints {

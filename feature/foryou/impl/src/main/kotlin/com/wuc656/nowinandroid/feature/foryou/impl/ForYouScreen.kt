@@ -86,7 +86,6 @@ import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wuc656.nowinandroid.core.designsystem.component.DynamicAsyncImage
 import com.wuc656.nowinandroid.core.designsystem.component.NiaButton
@@ -112,20 +111,23 @@ import com.wuc656.nowinandroid.feature.foryou.api.R
 fun ForYouScreen(
     onTopicClick: (String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: ForYouViewModel = hiltViewModel(),
+    viewModel: ForYouViewModel,
 ) {
     val onboardingUiState by viewModel.onboardingUiState.collectAsStateWithLifecycle()
     val feedState by viewModel.feedState.collectAsStateWithLifecycle()
     val isSyncing by viewModel.isSyncing.collectAsStateWithLifecycle()
     val deepLinkedUserNewsResource by viewModel.deepLinkedNewsResource.collectAsStateWithLifecycle()
 
+    DeepLinkEffect(
+        deepLinkedUserNewsResource,
+        viewModel::onDeepLinkOpened,
+    )
+
     ForYouScreen(
         isSyncing = isSyncing,
         onboardingUiState = onboardingUiState,
         feedState = feedState,
-        deepLinkedUserNewsResource = deepLinkedUserNewsResource,
         onTopicCheckedChanged = viewModel::updateTopicSelection,
-        onDeepLinkOpened = viewModel::onDeepLinkOpened,
         onTopicClick = onTopicClick,
         saveFollowedTopics = viewModel::dismissOnboarding,
         onNewsResourcesCheckedChanged = viewModel::updateNewsResourceSaved,
@@ -139,10 +141,8 @@ internal fun ForYouScreen(
     isSyncing: Boolean,
     onboardingUiState: OnboardingUiState,
     feedState: NewsFeedUiState,
-    deepLinkedUserNewsResource: UserNewsResource?,
     onTopicCheckedChanged: (String, Boolean) -> Unit,
     onTopicClick: (String) -> Unit,
-    onDeepLinkOpened: (String) -> Unit,
     saveFollowedTopics: () -> Unit,
     onNewsResourcesCheckedChanged: (String, Boolean) -> Unit,
     onNewsResourceViewed: (String) -> Unit,
@@ -247,10 +247,6 @@ internal fun ForYouScreen(
     }
     TrackScreenViewEvent(screenName = "ForYou")
     NotificationPermissionEffect()
-    DeepLinkEffect(
-        deepLinkedUserNewsResource,
-        onDeepLinkOpened,
-    )
 }
 
 /**
@@ -502,7 +498,7 @@ private fun DeepLinkEffect(
 
     LaunchedEffect(userNewsResource) {
         if (userNewsResource == null) return@LaunchedEffect
-        if (!userNewsResource.hasBeenViewed) onDeepLinkOpened(userNewsResource.id)
+        onDeepLinkOpened(userNewsResource.id)
 
         launchCustomChromeTab(
             context = context,
@@ -544,13 +540,11 @@ fun ForYouScreenPopulatedFeed(
             feedState = NewsFeedUiState.Success(
                 feed = userNewsResources,
             ),
-            deepLinkedUserNewsResource = null,
             onTopicCheckedChanged = { _, _ -> },
             saveFollowedTopics = {},
             onNewsResourcesCheckedChanged = { _, _ -> },
             onNewsResourceViewed = {},
             onTopicClick = {},
-            onDeepLinkOpened = {},
         )
     }
 }
@@ -568,13 +562,11 @@ fun ForYouScreenOfflinePopulatedFeed(
             feedState = NewsFeedUiState.Success(
                 feed = userNewsResources,
             ),
-            deepLinkedUserNewsResource = null,
             onTopicCheckedChanged = { _, _ -> },
             saveFollowedTopics = {},
             onNewsResourcesCheckedChanged = { _, _ -> },
             onNewsResourceViewed = {},
             onTopicClick = {},
-            onDeepLinkOpened = {},
         )
     }
 }
@@ -595,13 +587,11 @@ fun ForYouScreenTopicSelection(
             feedState = NewsFeedUiState.Success(
                 feed = userNewsResources,
             ),
-            deepLinkedUserNewsResource = null,
             onTopicCheckedChanged = { _, _ -> },
             saveFollowedTopics = {},
             onNewsResourcesCheckedChanged = { _, _ -> },
             onNewsResourceViewed = {},
             onTopicClick = {},
-            onDeepLinkOpened = {},
         )
     }
 }
@@ -614,13 +604,11 @@ fun ForYouScreenLoading() {
             isSyncing = false,
             onboardingUiState = OnboardingUiState.Loading,
             feedState = NewsFeedUiState.Loading,
-            deepLinkedUserNewsResource = null,
             onTopicCheckedChanged = { _, _ -> },
             saveFollowedTopics = {},
             onNewsResourcesCheckedChanged = { _, _ -> },
             onNewsResourceViewed = {},
             onTopicClick = {},
-            onDeepLinkOpened = {},
         )
     }
 }
@@ -638,13 +626,11 @@ fun ForYouScreenPopulatedAndLoading(
             feedState = NewsFeedUiState.Success(
                 feed = userNewsResources,
             ),
-            deepLinkedUserNewsResource = null,
             onTopicCheckedChanged = { _, _ -> },
             saveFollowedTopics = {},
             onNewsResourcesCheckedChanged = { _, _ -> },
             onNewsResourceViewed = {},
             onTopicClick = {},
-            onDeepLinkOpened = {},
         )
     }
 }

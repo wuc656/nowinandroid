@@ -16,17 +16,20 @@
 
 package com.wuc656.nowinandroid.feature.foryou.impl.navigation
 
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
 import com.wuc656.nowinandroid.core.navigation.Navigator
 import com.wuc656.nowinandroid.feature.foryou.api.navigation.ForYouNavKey
 import com.wuc656.nowinandroid.feature.foryou.impl.ForYouScreen
+import com.wuc656.nowinandroid.feature.foryou.impl.ForYouViewModel
 import com.wuc656.nowinandroid.feature.topic.api.navigation.navigateToTopic
 
 fun EntryProviderScope<NavKey>.forYouEntry(navigator: Navigator) {
-    entry<ForYouNavKey> {
+    entry<ForYouNavKey> { key ->
         ForYouScreen(
             onTopicClick = navigator::navigateToTopic,
+            viewModel = hiltViewModel<ForYouViewModel, ForYouViewModel.Factory> { it.create(key) },
         )
     }
 }
